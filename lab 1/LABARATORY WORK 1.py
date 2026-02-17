@@ -319,3 +319,27 @@ print(max_subarray_sum(nums, k))
 filter_strings = lambda lst: [s.upper() for s in lst if s.isalpha() and len(s) > 4 and len(set(s)) == len(s)]
 words = ["hello", "world", "python", "noon", "abcde", "aabbcc"]
 print(filter_strings(words))
+
+# 22 zadacha
+def group_by_parity_and_sort(nums):
+    evens = []
+    odds = []
+    for x in nums:
+        if x % 2 == 0:
+            evens.append(x)
+        else:
+            odds.append(x)
+    for i in range(len(evens)):
+        for j in range(len(evens) - 1 - i):
+            if evens[j] > evens[j+1]:
+                evens[j], evens[j+1] = evens[j+1], evens[j]
+    for i in range(len(odds)):
+        for j in range(len(odds) - 1 - i):
+            if odds[j] > odds[j+1]:
+                odds[j], odds[j+1] = odds[j+1], odds[j]
+    return evens + odds
+nums = [7, 2, 5, 4, 9, 1, 6, 8]
+print(group_by_parity_and_sort(nums))
+
+
+
