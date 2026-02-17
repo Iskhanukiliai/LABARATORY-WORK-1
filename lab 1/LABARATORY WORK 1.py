@@ -99,3 +99,6 @@ def compress_text(text):
     result += text[-1] + (str(count) if count > 1 else "")
 
     return result
+
+# 6 задача
+f = lambda s:[w for w in s.split() if len(w) >= 4 and w.isalpha() and len(set(w)) == len(w)]
