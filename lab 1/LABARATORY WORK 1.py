@@ -164,3 +164,39 @@ print(common_unique_chars(s1, s2))
 f = lambda s: [w for w in s.split() if len(w) > 3 and w[0].lower() == w[-1].lower() and w.lower() != w[::-1].lower()]
 text = "abca abba level radar testt helloH abcdba"
 print(f(text))
+
+# 13 zadacha
+def replace_every_nth(text, n, char):
+    result = ""
+    count = 0
+    i = 0
+    while i < len(text):
+        ch = text[i]
+        if ch == " " or ch.isdigit():
+            result += ch
+            i += 1
+            continue
+        if ch.isalpha():
+            start = i
+            while i < len(text) and text[i].isalpha():
+                i += 1
+            word = text[start:i]
+            if len(word) < 3:
+                result += word
+                continue
+            for c in word:
+                count += 1
+                if count % n == 0:
+                    result += char
+                else:
+                    result += c
+        else:
+            count += 1
+            if count % n == 0:
+                result += char
+            else:
+                result += ch
+            i += 1
+    return result
+text = "Hello world 123 ab cd python test"
+print(replace_every_nth(text, 3, "*"))
