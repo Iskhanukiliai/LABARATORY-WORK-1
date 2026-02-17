@@ -300,3 +300,17 @@ a = [2, 5, 8, 10, 3, 6]
 b = [2, 7, 8, 11, 3, 6]
 
 print(same_even(a, b))  # [2, 8, 6]
+
+# 20 zadacha
+def max_subarray_sum(nums, k):
+    max_sum = None
+    for i in range(len(nums) - k + 1):
+        sub = nums[i:i+k]
+        if all(x > 0 for x in sub):
+            current_sum = sum(sub)
+            if max_sum is None or current_sum > max_sum:
+                max_sum = current_sum
+    return max_sum
+nums = [1, 2, 3, -1, 4, 5, 6]
+k = 2
+print(max_subarray_sum(nums, k))
