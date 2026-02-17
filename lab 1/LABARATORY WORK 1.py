@@ -314,3 +314,8 @@ def max_subarray_sum(nums, k):
 nums = [1, 2, 3, -1, 4, 5, 6]
 k = 2
 print(max_subarray_sum(nums, k))
+
+# 21 zadacha
+filter_strings = lambda lst: [s.upper() for s in lst if s.isalpha() and len(s) > 4 and len(set(s)) == len(s)]
+words = ["hello", "world", "python", "noon", "abcde", "aabbcc"]
+print(filter_strings(words))
