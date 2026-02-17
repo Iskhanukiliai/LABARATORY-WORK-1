@@ -120,3 +120,9 @@ def palindrome_words(text):
     return unique_palindromes
 text = "Madam, level, noon, gagag! radar level kayak?"
 print("7 zadacha: ", palindrome_words(text))
+
+# 8 zadacha
+f = lambda s: ' '.join(
+    w if any(c.isdigit() for c in w) else ("VOWEL" if w[0].lower() in "aeiouy" else "CONSONANT")
+    for w in s.split()
+)
