@@ -81,8 +81,9 @@ def top_k_words(text, k):
     return res
 
 # 4 задача
-f = lambda s: ' '.join(w.lower() for w in s.split() if sum(c.isupper() for c in w[1:-1]) == 1)
-
+f = lambda s: [w for w in s.split() if sum(c.isupper() for c in w[1:-1]) == 1]
+text = "heLlo WorLd PyThon tesTing ABCde"
+print(f(text))
 # 5 задача
 def compress_text(text):
     if not text:
@@ -102,7 +103,8 @@ def compress_text(text):
 
 # 6 задача
 f = lambda s:[w for w in s.split() if len(w) >= 4 and w.isalpha() and len(set(w)) == len(w)]
-
+text = "test code 123 python lambda loop abcde aabb"
+print(f(text))
 
 # 7 zadacha
 def palindrome_words(text):
@@ -126,3 +128,23 @@ f = lambda s: ' '.join(
     w if any(c.isdigit() for c in w) else ("VOWEL" if w[0].lower() in "aeiouy" else "CONSONANT")
     for w in s.split()
 )
+text = "apple banana 123orange cat elephant dog2"
+print(f(text))
+
+# 9 zadacha
+def alternate_case_blocks(text, n):
+    result = ""
+    for i in range(0, len(text), n):
+        block = text[i:i+n]
+        if (i // n) % 2 == 0:
+            result += block.upper()
+        else:
+            result += block.lower()
+    return result
+text = "abcdefghijklmnopqrstuvwxyz"
+print(alternate_case_blocks(text, 5))
+
+# 10 zadacha
+f = lambda s: sum(1 for w in s.split() if len(w) >= 5 and not w[0].isdigit() and any(c.isdigit() for c in w))
+text = "abc123 1start 12345 a1b2c3 abcde5 9xyz"
+print(f(text))
