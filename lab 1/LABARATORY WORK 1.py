@@ -102,3 +102,21 @@ def compress_text(text):
 
 # 6 задача
 f = lambda s:[w for w in s.split() if len(w) >= 4 and w.isalpha() and len(set(w)) == len(w)]
+
+
+# 7 zadacha
+def palindrome_words(text):
+    proverka = ""
+    for ch in text:
+        if ch.isalpha() or ch.isspace():
+            proverka += ch.lower()
+    words = proverka.split()
+    unique_palindromes = []
+    for word in words:
+        if len(word) >= 3 and word == word[::-1]:
+            if word not in unique_palindromes:
+                unique_palindromes.append(word)
+    unique_palindromes.sort(key=lambda w: (-len(w), w))
+    return unique_palindromes
+text = "Madam, level, noon, gagag! radar level kayak?"
+print("7 zadacha: ", palindrome_words(text))
