@@ -59,3 +59,20 @@ def top_k_words(text, k):
 
 # 4 задача
 f = lambda s: ' '.join(w.lower() for w in s.split() if sum(c.isupper() for c in w[1:-1]) == 1)
+
+# 5 задача
+def compress_text(text):
+    if not text:
+        return ""
+
+    result = ""
+    count = 1
+    for i in range(1, len(text)):
+        if text[i].lower() == text[i - 1].lower():
+            count += 1
+        else:
+            result += text[i - 1] + (str(count) if count > 1 else "")
+            count = 1
+    result += text[-1] + (str(count) if count > 1 else "")
+
+    return result
