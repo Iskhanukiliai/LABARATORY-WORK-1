@@ -200,3 +200,12 @@ def replace_every_nth(text, n, char):
     return result
 text = "Hello world 123 ab cd python test"
 print(replace_every_nth(text, 3, "*"))
+
+# 14 zadacha
+f = lambda s: ','.join(
+    w for w in s.split()
+    if len(set(w.lower())) > 3
+    and all(w.lower().count(v) <= 1 for v in "aeiouy")
+)
+text = "planet apple stone queue cryptography education sky"
+print(f(text))
