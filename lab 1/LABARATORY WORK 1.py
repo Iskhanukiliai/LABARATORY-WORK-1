@@ -241,3 +241,24 @@ def word_pattern_sort(text):
     return result
 text = "apple banana kiwi pear orange grape plum"
 print(word_pattern_sort(text))
+
+# 16 zadacha
+def transform_list(nums):
+    result = []
+    for n in nums:
+        if n < 0:
+            continue
+        if n % 2 == 0:
+            result.append(n ** 2)
+        elif n > 10:
+            s = 0
+            temp = n
+            while temp > 0:
+                s += temp % 10
+                temp //= 10
+            result.append(s)
+        else:
+            result.append(n)
+    return result
+nums = [4, -3, 15, 8, 7, 22, 11, -5]
+print(transform_list(nums))
