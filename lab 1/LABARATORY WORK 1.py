@@ -341,5 +341,28 @@ def group_by_parity_and_sort(nums):
 nums = [7, 2, 5, 4, 9, 1, 6, 8]
 print(group_by_parity_and_sort(nums))
 
+# 23 zadacha
+def group_by_parity_and_sort(nums):
+    evens = []
+    odds = []
+    for x in nums:
+        if x % 2 == 0:
+            evens.append(x)
+        else:
+            odds.append(x)
+    for i in range(len(evens)):
+        for j in range(len(evens) - 1 - i):
+            if evens[j] > evens[j+1]:
+                evens[j], evens[j+1] = evens[j+1], evens[j]
+    for i in range(len(odds)):
+        for j in range(len(odds) - 1 - i):
+            if odds[j] > odds[j+1]:
+                odds[j], odds[j+1] = odds[j+1], odds[j]
+
+    return evens + odds
+nums = [7, 2, 5, 4, 9, 1, 6, 8]
+print(group_by_parity_and_sort(nums))
+
+
 
 
