@@ -384,6 +384,20 @@ def longest_increasing_sublist(nums):
 nums = [1, 2, 3, 1, 2, 3, 4, 0, 5]
 print(longest_increasing_sublist(nums))
 
+# 25 zadacha
+avg_lists = lambda lists: [
+    sum(inner) / len(inner)
+    for inner in lists
+    if len(inner) >= 3 and sum(inner) % 2 == 0
+]
+data = [
+    [1, 2, 3],
+    [4, 4],
+    [2, 2, 2, 2],
+    [1, 1, 1, 1],
+    [1, 2, 4]
+]
+print(avg_lists(data))
 
 
 
