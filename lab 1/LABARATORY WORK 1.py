@@ -271,3 +271,23 @@ f = lambda nums: list(
 )
 nums = [3, 5, 15, 30, 9, 25, 7, 105, 45, 81]
 print(f(nums))
+
+# 18 zadacha
+def flatten_and_filter(lst):
+    result = []
+    def walk(sub):
+        for x in sub:
+            if type(x) == list:
+                walk(x)
+            elif type(x) == int:
+                if x > 0 and x % 4 != 0 and abs(x) >= 10:
+                    result.append(x)
+    walk(lst)
+    for i in range(len(result)):
+        for j in range(0, len(result) - i - 1):
+            if result[j] > result[j + 1]:
+                result[j], result[j + 1] = result[j + 1], result[j]
+    return result
+lst = [1, [12, -3, [8, 15, [16, 23]], 4], 7, [5, [44, 19]]]
+
+print(flatten_and_filter(lst))
