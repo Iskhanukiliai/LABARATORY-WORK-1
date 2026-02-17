@@ -291,3 +291,12 @@ def flatten_and_filter(lst):
 lst = [1, [12, -3, [8, 15, [16, 23]], 4], 7, [5, [44, 19]]]
 
 print(flatten_and_filter(lst))
+
+# 19 zadacha
+same_even = lambda a, b: list(map(lambda x: x[0],
+    filter(lambda x: x[0] == x[1] and x[0] % 2 == 0, zip(a, b))
+))
+a = [2, 5, 8, 10, 3, 6]
+b = [2, 7, 8, 11, 3, 6]
+
+print(same_even(a, b))  # [2, 8, 6]
