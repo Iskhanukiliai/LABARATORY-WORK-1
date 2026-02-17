@@ -209,3 +209,35 @@ f = lambda s: ','.join(
 )
 text = "planet apple stone queue cryptography education sky"
 print(f(text))
+
+# 15 zadacha
+def word_pattern_sort(text):
+    vowels = "aeiouy"
+    words = text.split()
+    length_groups = {}
+    for w in words:
+        l = len(w)
+        if l not in length_groups:
+            length_groups[l] = []
+        length_groups[l].append(w)
+    result = []
+    for l in sorted(length_groups):
+        group = length_groups[l]
+        vowel_counts = []
+        for w in group:
+            count = 0
+            for c in w.lower():
+                if c in vowels:
+                    count += 1
+            vowel_counts.append(count)
+        n = len(group)
+        for i in range(n):
+            for j in range(n - 1):
+                if vowel_counts[j] < vowel_counts[j + 1] or \
+                        (vowel_counts[j] == vowel_counts[j + 1] and group[j] > group[j + 1]):
+                    group[j], group[j + 1] = group[j + 1], group[j]
+                    vowel_counts[j], vowel_counts[j + 1] = vowel_counts[j + 1], vowel_counts[j]
+        result.extend(group)
+    return result
+text = "apple banana kiwi pear orange grape plum"
+print(word_pattern_sort(text))
