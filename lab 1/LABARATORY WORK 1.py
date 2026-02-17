@@ -160,3 +160,7 @@ s1 = "abracadabra 123"
 s2 = "barbecue 456"
 print(common_unique_chars(s1, s2))
 
+#12 zadacha
+f = lambda s: [w for w in s.split() if len(w) > 3 and w[0].lower() == w[-1].lower() and w.lower() != w[::-1].lower()]
+text = "abca abba level radar testt helloH abcdba"
+print(f(text))
