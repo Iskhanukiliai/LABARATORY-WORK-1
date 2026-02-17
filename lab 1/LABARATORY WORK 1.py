@@ -262,3 +262,12 @@ def transform_list(nums):
     return result
 nums = [4, -3, 15, 8, 7, 22, 11, -5]
 print(transform_list(nums))
+
+# 17 zadacha
+f = lambda nums: list(
+    map(lambda x: x*x,
+        filter(lambda x: (x % 3 == 0 or x % 5 == 0) and x % 15 != 0 and len(str(abs(x))) % 2 == 1, nums)
+    )
+)
+nums = [3, 5, 15, 30, 9, 25, 7, 105, 45, 81]
+print(f(nums))
