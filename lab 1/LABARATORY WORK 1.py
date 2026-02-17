@@ -364,5 +364,27 @@ nums = [7, 2, 5, 4, 9, 1, 6, 8]
 print(group_by_parity_and_sort(nums))
 
 
+# 24 zadacha
+def longest_increasing_sublist(nums):
+    if not nums:
+        return []
+    best = [nums[0]]
+    current = [nums[0]]
+    for i in range(1, len(nums)):
+        if nums[i] > nums[i-1]:
+            current.append(nums[i])
+        else:
+            if len(current) > len(best):
+                best = current[:]
+            current = [nums[i]]
+    if len(current) > len(best):
+        best = current[:]
+
+    return best
+nums = [1, 2, 3, 1, 2, 3, 4, 0, 5]
+print(longest_increasing_sublist(nums))
+
+
+
 
 
