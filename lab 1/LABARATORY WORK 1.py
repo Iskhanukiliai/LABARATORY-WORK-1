@@ -1,3 +1,26 @@
+# задача 1
+
+def analyze_text(text):
+    text_lower = text.lower()
+    clean_text = ""
+    for ch in text_lower:
+        if ch.isalpha() or ch == " ":
+            clean_text += ch
+
+    vowels = "aeiouy"
+    unique_vowels = []
+    for ch in clean_text:
+        if ch in vowels and ch not in unique_vowels:
+            unique_vowels.append(ch)
+    num_unique_vowels = len(unique_vowels)
+
+    words = clean_text.split()
+    selected = []
+    for w in words:
+        if len(w) >= 5 and w[0] == w[-1] and w not in selected:
+            selected.append(w)
+
+    return (num_unique_vowels, ' '.join(selected))
 
 # задача 2
 matyn = input("мәтін енгіз:")
