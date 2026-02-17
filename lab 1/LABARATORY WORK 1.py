@@ -148,3 +148,15 @@ print(alternate_case_blocks(text, 5))
 f = lambda s: sum(1 for w in s.split() if len(w) >= 5 and not w[0].isdigit() and any(c.isdigit() for c in w))
 text = "abc123 1start 12345 a1b2c3 abcde5 9xyz"
 print(f(text))
+
+#11 zadacha
+def common_unique_chars(s1, s2):
+    result = ""
+    for ch in s1:
+        if ch.isalpha() and ch in s2 and ch not in result:
+            result += ch
+    return result
+s1 = "abracadabra 123"
+s2 = "barbecue 456"
+print(common_unique_chars(s1, s2))
+
