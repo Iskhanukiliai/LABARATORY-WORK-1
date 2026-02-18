@@ -1,5 +1,4 @@
 # задача 1
-
 def analyze_text(text):
     text_lower = text.lower()
     clean_text = ""
@@ -399,6 +398,20 @@ data = [
 ]
 print(avg_lists(data))
 
+#26
+def remove_duplicates_keep_last(nums):
+    result = []
+    seen = []
+    for i in range(len(nums) - 1, -1, -1):
+        if nums[i] not in seen:
+            seen.append(nums[i])
+            result.append(nums[i])
+    result.reverse()
+    return result
+user_input = input("San engiziniz: ")
+nums = []
+for x in user_input.split():
+    nums.append(int(x))
 
-
+print(remove_duplicates_keep_last(nums))
 
