@@ -1,3 +1,4 @@
+#ex 1
 users = set()
 buy_count = 0
 total_sum = 0
@@ -13,7 +14,7 @@ with open("shop_logs.txt", "r", encoding="utf-8") as f:
         users.add(user)
 
         if action == "BUY":
-            amount = int(parts[3])
+            amount = int(parts[3]) #amount- сумма, parts[3] сумма покупок, строка --> число
             buy_count += 1
             total_sum += amount
 
@@ -33,9 +34,20 @@ if buy_count != 0:
 else:
     avg_check = 0
 with open("report.txt", "w", encoding="utf-8") as r:
-    r.write(f"Уникальных пользователей: {len(users)}\n")
-    r.write(f"Всего покупок: {buy_count}\n")
-    r.write(f"Общая сумма: {total_sum}\n")
-    r.write(f"Самый активный покупатель: {max_user}\n")
+    r.write(f"Қолданушылар саны: {len(users)}\n")
+    r.write(f"Барлық сатылымдар саны: {buy_count}\n")
+    r.write(f"Жалпы сумма: {total_sum}\n")
+    r.write(f"Ең активный пайдаланушы: {max_user}\n")
     r.write(f"Средний чек: {avg_check}\n")
-print("Отчёт создан: report.txt")
+print("Отчет құрылды: report.txt")
+with open("report.txt", "r", encoding="utf-8") as f:
+     print(f.read())
+
+
+
+
+
+
+
+
+
