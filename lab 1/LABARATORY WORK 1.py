@@ -5,24 +5,20 @@ def analyze_text(text):
     for ch in text_lower:
         if ch.isalpha() or ch == " ":
             clean_text += ch
-
     vowels = "aeiouy"
     unique_vowels = []
     for ch in clean_text:
         if ch in vowels and ch not in unique_vowels:
             unique_vowels.append(ch)
     num_unique_vowels = len(unique_vowels)
-
     words = clean_text.split()
     selected = []
     for w in words:
         if len(w) >= 5 and w[0] == w[-1] and w not in selected:
             selected.append(w)
-
-    return (num_unique_vowels, ' '.join(selected))
+            return ((num_unique_vowels, ' '.join(selected)))
 
 # задача 2
-matyn = input("мәтін енгіз:")
 def main(text):
     result =[]
     for word in text.split():
@@ -36,10 +32,10 @@ def main(text):
             if len(word2) % 2 == 0:
                 result.append(word2)
     return " ".join(result)
+a = input()
+print(main(a))
 
 
-print(main(matyn))
-# lambda
 main = lambda text: " ".join(
     map(
         lambda word: word[::-1],
@@ -87,7 +83,6 @@ print(f(text))
 def compress_text(text):
     if not text:
         return ""
-
     result = ""
     count = 1
     for i in range(1, len(text)):
@@ -97,7 +92,6 @@ def compress_text(text):
             result += text[i - 1] + (str(count) if count > 1 else "")
             count = 1
     result += text[-1] + (str(count) if count > 1 else "")
-
     return result
 
 # 6 задача
@@ -288,7 +282,6 @@ def flatten_and_filter(lst):
                 result[j], result[j + 1] = result[j + 1], result[j]
     return result
 lst = [1, [12, -3, [8, 15, [16, 23]], 4], 7, [5, [44, 19]]]
-
 print(flatten_and_filter(lst))
 
 # 19 zadacha
@@ -297,7 +290,6 @@ same_even = lambda a, b: list(map(lambda x: x[0],
 ))
 a = [2, 5, 8, 10, 3, 6]
 b = [2, 7, 8, 11, 3, 6]
-
 print(same_even(a, b))  # [2, 8, 6]
 
 # 20 zadacha
@@ -412,6 +404,23 @@ user_input = input("San engiziniz: ")
 nums = []
 for x in user_input.split():
     nums.append(int(x))
-
 print(remove_duplicates_keep_last(nums))
 
+#27
+words = ["apple", "banana", "kiwi", "almalar", "pear", "orange", "watermelon"]
+sort_top5 = lambda words: sorted(words, key=lambda x: (-len(x), x))[:5]
+result = sort_top5(words)
+print(result)
+
+#28
+def moving_average(nums, k):
+    result = []
+    for i in range(len(nums) - k + 1):
+        window = nums[i:i+k]
+        if all(x >= 0 for x in window):
+            avg = sum(window) / k
+            result.append(avg)
+    return result
+nums = [1, 2, 3, -1, 4, 5, 6]
+k = 3
+print(moving_average(nums, k))
