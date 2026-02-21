@@ -1,4 +1,4 @@
-# задача 1
+# ex 1
 def analyze_text(text):
     text_lower = text.lower()
     clean_text = ""
@@ -18,24 +18,7 @@ def analyze_text(text):
             selected.append(w)
             return ((num_unique_vowels, ' '.join(selected)))
 
-# задача 2
-def main(text):
-    result =[]
-    for word in text.split():
-        digit = False
-        for ch in word:
-            if ch.isdigit():
-                digit = True
-                break
-        if not digit:
-            word2 = word[::-1]
-            if len(word2) % 2 == 0:
-                result.append(word2)
-    return " ".join(result)
-a = input()
-print(main(a))
-
-
+# ex 2
 main = lambda text: " ".join(
     map(
         lambda word: word[::-1],
@@ -48,7 +31,7 @@ main = lambda text: " ".join(
 matyn = input("matyn engiz:")
 print(main(matyn))
 
-# 3 задача
+# ex 3
 def top_k_words(text, k):
     text = text.lower()
     clean = ""
@@ -75,11 +58,11 @@ def top_k_words(text, k):
         res.append(uniq[i])
     return res
 
-# 4 задача
+# ex 4
 f = lambda s: [w for w in s.split() if sum(c.isupper() for c in w[1:-1]) == 1]
 text = "heLlo WorLd PyThon tesTing ABCde"
 print(f(text))
-# 5 задача
+# ex 5
 def compress_text(text):
     if not text:
         return ""
@@ -94,12 +77,12 @@ def compress_text(text):
     result += text[-1] + (str(count) if count > 1 else "")
     return result
 
-# 6 задача
+# ex 6
 f = lambda s:[w for w in s.split() if len(w) >= 4 and w.isalpha() and len(set(w)) == len(w)]
 text = "test code 123 python lambda loop abcde aabb"
 print(f(text))
 
-# 7 zadacha
+# ex 7
 def palindrome_words(text):
     proverka = ""
     for ch in text:
@@ -116,7 +99,7 @@ def palindrome_words(text):
 text = "Madam, level, noon, gagag! radar level kayak?"
 print("7 zadacha: ", palindrome_words(text))
 
-# 8 zadacha
+#ex 8
 f = lambda s: ' '.join(
     w if any(c.isdigit() for c in w) else ("VOWEL" if w[0].lower() in "aeiouy" else "CONSONANT")
     for w in s.split()
@@ -124,7 +107,7 @@ f = lambda s: ' '.join(
 text = "apple banana 123orange cat elephant dog2"
 print(f(text))
 
-# 9 zadacha
+# ex 9
 def alternate_case_blocks(text, n):
     result = ""
     for i in range(0, len(text), n):
@@ -137,12 +120,12 @@ def alternate_case_blocks(text, n):
 text = "abcdefghijklmnopqrstuvwxyz"
 print(alternate_case_blocks(text, 5))
 
-# 10 zadacha
+# ex 10
 f = lambda s: sum(1 for w in s.split() if len(w) >= 5 and not w[0].isdigit() and any(c.isdigit() for c in w))
 text = "abc123 1start 12345 a1b2c3 abcde5 9xyz"
 print(f(text))
 
-#11 zadacha
+# ex 11
 def common_unique_chars(s1, s2):
     result = ""
     for ch in s1:
@@ -153,12 +136,12 @@ s1 = "abracadabra 123"
 s2 = "barbecue 456"
 print(common_unique_chars(s1, s2))
 
-#12 zadacha
+# ex 12
 f = lambda s: [w for w in s.split() if len(w) > 3 and w[0].lower() == w[-1].lower() and w.lower() != w[::-1].lower()]
 text = "abca abba level radar testt helloH abcdba"
 print(f(text))
 
-# 13 zadacha
+# ex 13
 def replace_every_nth(text, n, char):
     result = ""
     count = 0
@@ -194,7 +177,7 @@ def replace_every_nth(text, n, char):
 text = "Hello world 123 ab cd python test"
 print(replace_every_nth(text, 3, "*"))
 
-# 14 zadacha
+# ex 14
 f = lambda s: ','.join(
     w for w in s.split()
     if len(set(w.lower())) > 3
@@ -203,7 +186,7 @@ f = lambda s: ','.join(
 text = "planet apple stone queue cryptography education sky"
 print(f(text))
 
-# 15 zadacha
+# ex 15
 def word_pattern_sort(text):
     vowels = "aeiouy"
     words = text.split()
@@ -235,7 +218,7 @@ def word_pattern_sort(text):
 text = "apple banana kiwi pear orange grape plum"
 print(word_pattern_sort(text))
 
-# 16 zadacha
+# ex 16
 def transform_list(nums):
     result = []
     for n in nums:
@@ -265,7 +248,7 @@ f = lambda nums: list(
 nums = [3, 5, 15, 30, 9, 25, 7, 105, 45, 81]
 print(f(nums))
 
-# 18 zadacha
+# ex 18
 def flatten_and_filter(lst):
     result = []
     def walk(sub):
@@ -284,7 +267,7 @@ def flatten_and_filter(lst):
 lst = [1, [12, -3, [8, 15, [16, 23]], 4], 7, [5, [44, 19]]]
 print(flatten_and_filter(lst))
 
-# 19 zadacha
+# ex 19
 same_even = lambda a, b: list(map(lambda x: x[0],
     filter(lambda x: x[0] == x[1] and x[0] % 2 == 0, zip(a, b))
 ))
@@ -292,7 +275,7 @@ a = [2, 5, 8, 10, 3, 6]
 b = [2, 7, 8, 11, 3, 6]
 print(same_even(a, b))  # [2, 8, 6]
 
-# 20 zadacha
+# ex 20
 def max_subarray_sum(nums, k):
     max_sum = None
     for i in range(len(nums) - k + 1):
@@ -306,12 +289,12 @@ nums = [1, 2, 3, -1, 4, 5, 6]
 k = 2
 print(max_subarray_sum(nums, k))
 
-# 21 zadacha
+# ex 21
 filter_strings = lambda lst: [s.upper() for s in lst if s.isalpha() and len(s) > 4 and len(set(s)) == len(s)]
 words = ["hello", "world", "python", "noon", "abcde", "aabbcc"]
 print(filter_strings(words))
 
-# 22 zadacha
+# ex 22
 def group_by_parity_and_sort(nums):
     evens = []
     odds = []
@@ -332,7 +315,7 @@ def group_by_parity_and_sort(nums):
 nums = [7, 2, 5, 4, 9, 1, 6, 8]
 print(group_by_parity_and_sort(nums))
 
-# 23 zadacha
+# ex 23
 def group_by_parity_and_sort(nums):
     evens = []
     odds = []
@@ -355,7 +338,7 @@ nums = [7, 2, 5, 4, 9, 1, 6, 8]
 print(group_by_parity_and_sort(nums))
 
 
-# 24 zadacha
+# ex 24
 def longest_increasing_sublist(nums):
     if not nums:
         return []
@@ -375,7 +358,7 @@ def longest_increasing_sublist(nums):
 nums = [1, 2, 3, 1, 2, 3, 4, 0, 5]
 print(longest_increasing_sublist(nums))
 
-# 25 zadacha
+# ex 25
 avg_lists = lambda lists: [
     sum(inner) / len(inner)
     for inner in lists
@@ -390,7 +373,7 @@ data = [
 ]
 print(avg_lists(data))
 
-#26
+#ex 26
 def remove_duplicates_keep_last(nums):
     result = []
     seen = []
@@ -406,13 +389,13 @@ for x in user_input.split():
     nums.append(int(x))
 print(remove_duplicates_keep_last(nums))
 
-#27
+# ex 27
 words = ["apple", "banana", "kiwi", "almalar", "pear", "orange", "watermelon"]
 sort_top5 = lambda words: sorted(words, key=lambda x: (-len(x), x))[:5]
 result = sort_top5(words)
 print(result)
 
-#28
+# ex 28
 def moving_average(nums, k):
     result = []
     for i in range(len(nums) - k + 1):
