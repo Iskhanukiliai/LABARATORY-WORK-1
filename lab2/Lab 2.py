@@ -50,18 +50,16 @@ with open("report.txt", "r", encoding="utf-8") as f:
 # ex2
 import csv
 
-zhumysshy = """name,department,salary
+zhumysshylar = """name,department,salary
 Ali,IT,500000
 Dana,HR,300000
 Arman,IT,600000
 Aruzhan,Marketing,400000
 Dias,IT,450000"""
-
-with open("employees.csv", "w", encoding="utf-8") as f:
-    f.write(zhumysshy)
-
 employees = []
-with open("employees.csv", "r", encoding="utf-8") as f1:
+with open("employees.csv", "w", encoding='utf-8') as f:
+    f.write(zhumysshylar)
+with open("employees.csv", 'r', encoding='utf-8') as f1:
     reader = csv.DictReader(f1)
     for row in reader:
         row['salary'] = int(row['salary'])
@@ -72,6 +70,7 @@ avg_salary = total_salary / len(employees)
 
 dept_salary = {}
 dept_count = {}
+
 for emp in employees:
     dept = emp['department']
     if dept not in dept_salary:
@@ -80,22 +79,14 @@ for emp in employees:
     else:
         dept_salary[dept] += emp['salary']
         dept_count[dept] += 1
-
-avg_dept_salary = {dept: dept_salary[dept]/dept_count[dept] for dept in dept_salary}
-max_avg_dept = max(avg_dept_salary, key=avg_dept_salary.get)
-highest_paid = max(employees, key=lambda emp: emp['salary'])
+avg_dept_salary = {dept: dept_salary[dept] / dept_count[dept] for dept in dept_salary}
+max_avg_dept = max(dept_salary, key=avg_dept_salary.get)
+highest_paid = max(employees, key=lambda employees: employees['salary'])
 above_avg = [emp for emp in employees if emp['salary'] > avg_salary]
-
-with open("high_salary.csv", "w", newline='', encoding="utf-8") as f2:
-    writer = csv.DictWriter(f2, fieldnames=['name','department','salary'])
+with open('high_salary.csv', 'w', newline='', encoding='utf-8') as f2:
+    writer = csv.DictWriter(f2, fieldnames=['name', 'department', 'salary'])
     writer.writeheader()
     writer.writerows(above_avg)
-
 print("Ortasha zarplata:", avg_salary)
-print("Otdel s samoy vysokoy sredney zarplatoy:", max_avg_dept)
-print("Samyy vysokoplachivayemyy sotrudnik:", highest_paid)
-
-
-
-
-
+print("max_avg_dept:", max_avg_dept)
+print("highest_paid:", highest_paid)
