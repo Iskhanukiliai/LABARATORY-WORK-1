@@ -49,7 +49,6 @@ with open("report.txt", "r", encoding="utf-8") as f:
 
 # ex2
 import csv
-
 zhumysshylar = """name,department,salary
 Ali,IT,500000
 Dana,HR,300000
@@ -90,3 +89,65 @@ with open('high_salary.csv', 'w', newline='', encoding='utf-8') as f2:
 print("Ortasha zarplata:", avg_salary)
 print("max_avg_dept:", max_avg_dept)
 print("highest_paid:", highest_paid)
+
+
+
+
+
+#ex 3
+import json
+
+# читаем файл
+with open("orders.json", "r", encoding="utf-8") as f:
+    orders = json.load(f)
+
+total_revenue = 0
+user_orders = {}
+item_count = {}
+top_user = ""
+max_order_price = 0
+most_popular_item = ""
+max_item_count = 0
+total_items_sold = 0
+
+for order in orders:
+    total_revenue += order["total"]
+
+    user = order["user"]
+    if user not in user_orders:
+        user_orders[user] = 0
+    user_orders[user] += 1
+
+    if order["total"] > max_order_price:
+        max_order_price = order["total"]
+        top_user = user
+
+    for item in order["items"]:
+        total_items_sold += 1
+        if item not in item_count:
+            item_count[item] = 0
+        item_count[item] += 1
+
+# самый популярный товар
+for item in item_count:
+    if item_count[item] > max_item_count:
+        max_item_count = item_count[item]
+        most_popular_item = item
+
+summary = {
+    "total_revenue": total_revenue,
+    "top_user": top_user,
+    "most_popular_item": most_popular_item,
+    "total_orders": len(orders)
+}
+
+# сохраняем файл
+with open("summary.json", "w", encoding="utf-8") as f:
+    json.dump(summary, f, ensure_ascii=False, indent=2)
+
+print("Общая сумма:", total_revenue)
+print("Заказы по пользователям:", user_orders)
+print("Всего товаров продано:", total_items_sold)
+print("Топ-пользователь:", top_user)
+print("Самый популярный товар:", most_popular_item)
+print("Файл summary.json создан")
