@@ -96,26 +96,13 @@ print("highest_paid:", highest_paid)
 
 #ex 3
 import json
+
 orders_data = [
-    {
-        "order_id": 1,
-        "user": "Ali",
-        "items": ["phone", "case"],
-        "total": 300000
-    },
-    {
-        "order_id": 2,
-        "user": "Dana",
-        "items": ["laptop"],
-        "total": 800000
-    },
-    {
-        "order_id": 3,
-        "user": "Ali",
-        "items": ["mouse", "keyboard"],
-        "total": 70000
-    }
+    {"order_id": 1, "user": "Ali", "items": ["phone", "case"], "total": 300000},
+    {"order_id": 2, "user": "Dana", "items": ["laptop"], "total": 800000},
+    {"order_id": 3, "user": "Ali", "items": ["mouse", "keyboard"], "total": 70000}
 ]
+
 with open("orders.json", "w", encoding="utf-8") as f:
     json.dump(orders_data, f, ensure_ascii=False, indent=2)
 
@@ -149,26 +136,24 @@ for order in orders:
             item_count[item] = 0
         item_count[item] += 1
 
-
 for item in item_count:
     if item_count[item] > max_item_count:
         max_item_count = item_count[item]
         most_popular_item = item
 
-summary = {
+# записываем результаты напрямую в JSON без словаря summary
+results = {
     "total_revenue": total_revenue,
     "top_user": top_user,
     "most_popular_item": most_popular_item,
     "total_orders": len(orders)
 }
 
-
 with open("summary.json", "w", encoding="utf-8") as f:
-    json.dump(summary, f, ensure_ascii=False, indent=2)
+    json.dump(results, f, ensure_ascii=False, indent=2)
 
 print("Толық сумма:", total_revenue)
 print("Қолданушы бойынша заказ", user_orders)
 print("Барлығы сатылған товар:", total_items_sold)
 print("Топ-қодануша:", top_user)
 print("Ең көп сатлылған товар:", most_popular_item)
-
