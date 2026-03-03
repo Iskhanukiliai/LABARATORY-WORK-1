@@ -407,3 +407,10 @@ def moving_average(nums, k):
 nums = [1, 2, 3, -1, 4, 5, 6]
 k = 3
 print(moving_average(nums, k))
+# ex29
+result = lambda a, b: list(
+    filter(
+        lambda x: x not in b and x > (sum(a) / len(a)),
+        a
+    )
+)
