@@ -18,3 +18,8 @@ numbers = [5, 12, 7, 20, 33, 8]
 num = list(map(lambda i : i**2 if i % 2 == 0 else i * 3, numbers))
 print(num)
 
+#ex 5
+compare = lambda a, b: "a >" if a > b else ("b>" if b > a else "==")
+print(compare(4, 5))
+
+
