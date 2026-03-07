@@ -43,11 +43,8 @@ with open("report.txt", "r", encoding="utf-8") as f:
      print(f.read())
 
 
+#ex2
 
-
-
-
-# ex2
 import csv
 zhumysshylar = """name,department,salary
 Ali,IT,500000
@@ -90,10 +87,6 @@ print("Ortasha zarplata:", avg_salary)
 print("max_avg_dept:", max_avg_dept)
 print("highest_paid:", highest_paid)
 
-
-
-
-
 #ex 3
 
 import json
@@ -118,10 +111,10 @@ max_order_price = 0
 most_popular_item = ""
 max_item_count = 0
 total_items_sold = 0
-
 for order in orders:
-    total_revenue += order["total"]
-    user = order["user"]
+    total_revenue += order['total']
+    user = order['user']
+
 
     if user not in user_orders:
         user_orders[user] = 0

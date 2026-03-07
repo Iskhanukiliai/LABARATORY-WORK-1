@@ -332,7 +332,6 @@ def group_by_parity_and_sort(nums):
         for j in range(len(odds) - 1 - i):
             if odds[j] > odds[j+1]:
                 odds[j], odds[j+1] = odds[j+1], odds[j]
-
     return evens + odds
 nums = [7, 2, 5, 4, 9, 1, 6, 8]
 print(group_by_parity_and_sort(nums))
@@ -353,7 +352,6 @@ def longest_increasing_sublist(nums):
             current = [nums[i]]
     if len(current) > len(best):
         best = current[:]
-
     return best
 nums = [1, 2, 3, 1, 2, 3, 4, 0, 5]
 print(longest_increasing_sublist(nums))
@@ -388,13 +386,11 @@ nums = []
 for x in user_input.split():
     nums.append(int(x))
 print(remove_duplicates_keep_last(nums))
-
 # ex 27
 words = ["apple", "banana", "kiwi", "almalar", "pear", "orange", "watermelon"]
 sort_top5 = lambda words: sorted(words, key=lambda x: (-len(x), x))[:5]
 result = sort_top5(words)
 print(result)
-
 # ex 28
 def moving_average(nums, k):
     result = []
