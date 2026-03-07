@@ -42,7 +42,6 @@ with open("report.txt", "w", encoding="utf-8") as r:
 with open("report.txt", "r", encoding="utf-8") as f:
      print(f.read())
 
-
 #ex2
 
 import csv
