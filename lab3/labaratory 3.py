@@ -22,4 +22,18 @@ print(num)
 compare = lambda a, b: "a >" if a > b else ("b>" if b > a else "==")
 print(compare(4, 5))
 
+#ex 6
+numbers = [0, -3, 5, -7, 8]
+result = [(lambda x: "on san" if x > 0 else ("teris san" if x < 0 else "zero"))(n) for n in numbers]
+print(result)
+#ex 7
 
+def even_numbers(n):
+    for i in range(1, n +1):
+        if i % 2 == 0:
+            if i % 4 == 0:
+                yield "4 кратно"
+            else:
+                yield i
+for x in even_numbers(15):
+    print(x)
