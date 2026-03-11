@@ -77,4 +77,7 @@ def squares(n):
 for x in squares(5):
     print(x)
 
+#ex 10
 
+squares = [i*i for i in range(1, 21) if i % 2 == 0]
+print(squares)
