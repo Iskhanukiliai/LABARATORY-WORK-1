@@ -86,3 +86,8 @@ print(squares)
 matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 products = [(lambda row: row[0]*row[1]*row[2])(row) for row in matrix]
 print(products)
+
+#ex 12
+words = ["кот", "машина", "ананас", "дом"]
+result = [w for in words if len(w) > 4 and "a" not in w]
+print(result)
