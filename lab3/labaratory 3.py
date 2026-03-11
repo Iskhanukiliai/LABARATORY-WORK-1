@@ -81,3 +81,8 @@ for x in squares(5):
 
 squares = [i*i for i in range(1, 21) if i % 2 == 0]
 print(squares)
+
+#ex 11
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+products = [(lambda row: row[0]*row[1]*row[2])(row) for row in matrix]
+print(products)
