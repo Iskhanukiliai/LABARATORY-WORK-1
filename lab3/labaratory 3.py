@@ -91,3 +91,16 @@ print(products)
 words = ["кот", "машина", "ананас", "дом"]
 result = [w for in words if len(w) > 4 and "a" not in w]
 print(result)
+
+#ex 13
+matrix = [[1, 2], [3, 4], [5, 6]]
+flat = [num for row in matrix for num in row]
+print(flat)
+
+#ex 14
+numbers = [("FizzBuzz" if i % 15 == 0
+            else "Fizz" if i % 3 == 0
+            else "Buzz" if i % 5 ==0
+            else i)
+           for i in range(1, 21)]
+print(numbers)
