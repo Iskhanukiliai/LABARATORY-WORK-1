@@ -49,4 +49,20 @@ def filter_words(word):
 words = ["кот", "машина", "арбуз", "дом"]
 for w in filter_words(word):
     print(w)
+#ex 8
+def infinite_numbers():
+    n = 1
+    while True:
+        if n % 3 == 0 and n % 5 == 0 :
+            yield "FizzBuzz"
+        elif n % 3 == 0 :
+            yield "Fizz"
+        elif n % 5 == 0 :
+            yield "Buzz"
+        else:
+            yield n
+        n += 1
+gen = infinite_numbers()
+for _ in range(15):
+    print(next(gen))
 
