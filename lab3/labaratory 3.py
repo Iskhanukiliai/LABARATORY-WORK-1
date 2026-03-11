@@ -37,3 +37,16 @@ def even_numbers(n):
                 yield i
 for x in even_numbers(15):
     print(x)
+
+#ex 8
+def filter_words(word):
+    for w in  words:
+        if len(w) > 4 :
+            if "a" in w:
+                yield "c a"
+            else:
+                yield w
+words = ["кот", "машина", "арбуз", "дом"]
+for w in filter_words(word):
+    print(w)
+
