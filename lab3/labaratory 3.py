@@ -139,7 +139,15 @@ result = [x for row in matrix for x in row]
 print(result)
 print("==========================")
 
-
+# ex 17
+numbers = range(1, 21)
+result = ["FizzBuzz" if x % 3 == 0 and x %5 == 0
+          else "Fizz" if x % 3 == 0
+          else "Buzz" if x % 5 == 0
+          else x
+          for x in numbers]
+print(result)
+print("==========================")
 
 
 
