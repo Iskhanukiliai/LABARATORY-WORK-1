@@ -107,5 +107,19 @@ print(result)
 print("==========================")
 
 # ex 12
+from functools import reduce
+matrix = [[1,2,3], [4,5,6], [7,8,9]]
+result = [reduce(lambda a, b: a * b, row) for row in matrix]
+print(result)
+print("==========================")
+
+# ex 13
+matrix = [[1,2,3], [4,5,6], [7,8,9]]
+
+result = [row[0] * row[1] * row[2] for row in matrix]
+
+print(result)
+print("==========================")
+
 
 
