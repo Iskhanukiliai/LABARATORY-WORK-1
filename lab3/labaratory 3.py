@@ -115,11 +115,17 @@ print("==========================")
 
 # ex 13
 matrix = [[1,2,3], [4,5,6], [7,8,9]]
-
 result = [row[0] * row[1] * row[2] for row in matrix]
-
 print(result)
 print("==========================")
+
+
+# ex 14
+words = ["кот", "машина", "ананас", "дом"]
+result = [word for word in words if len(word) > 4 and "а" not in word]
+print(result)
+print("==========================")
+
 
 
 
