@@ -127,5 +127,19 @@ print(result)
 print("==========================")
 
 
+# ex 15
+numbers = [1,2,3,4,5]
+result = {x: "чётное" if x % 2 == 0 else "нечётное" for x in numbers}
+print(result)
+print("==========================")
+
+# ex 16
+matrix = [[1,2], [3,4], [5,6]]
+result = [x for row in matrix for x in row]
+print(result)
+print("==========================")
+
+
+
 
 
