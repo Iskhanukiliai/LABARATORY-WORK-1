@@ -43,7 +43,6 @@ with open("report.txt", "r", encoding="utf-8") as f:
      print(f.read())
 
 #ex2
-
 import csv
 zhumysshylar = """name,department,salary
 Ali,IT,500000

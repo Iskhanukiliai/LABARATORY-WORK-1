@@ -182,6 +182,13 @@ def special_numbers(n):
             yield x
 for n in special_numbers(15):
     print(n)
+# ex 20
+numbers = [0, 5, 12, 7, 20, -3, 8]
+result = list(
+    map(lambda x: x/2 if x % 2 == 0 else x*3,
+        filter(lambda x: x > 5, numbers))
+)
+print(result)
 
 
 
