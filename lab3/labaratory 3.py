@@ -190,6 +190,11 @@ result = list(
 )
 print(result)
 
+# ex 21
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+result = list(filter(lambda z: z % 2 == 0, numbers))
+print(result)
+
 
 
 
