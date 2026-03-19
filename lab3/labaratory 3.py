@@ -195,6 +195,10 @@ numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 result = list(filter(lambda z: z % 2 == 0, numbers))
 print(result)
 
+# ex 22
+words = ["кот", "машина", "арбуз", "дом"]
+result = list(map(lambda w: w.upper() + "!" if len(w) > 3 else w.upper(), words))
+print(result)
 
 
 
