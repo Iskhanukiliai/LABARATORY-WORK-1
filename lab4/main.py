@@ -1,8 +1,9 @@
-from flask import Flask
+from fastapi import FastAPI
 
-app = Flask(__name__)
+app = FastAPI()
 
 
+#task 1
 class Player:
     def __init__(self, player_id, name, hp):
         self._id = player_id
@@ -16,10 +17,8 @@ class Player:
         print(f"Player {self._name} удалён")
 
 
-@app.route("/")
-def home():
+@app.get("/task1")
+def task1():
     p = Player(1, " john ", 120)
-    return f"""
-    <h1>AI Dungeon Game Log System</h1>
-    <p>{p}</p>
-    """
+    return {"result": str(p)}
+
