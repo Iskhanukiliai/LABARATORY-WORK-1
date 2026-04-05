@@ -73,3 +73,24 @@ class Item:
 def item_info():
     i = Item(1, " Sword ", 50)
     return str(i)
+
+#task 4
+class Inventory:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        if not any(i.id == item.id for i in self.items):
+            self.items.append(item)
+
+    def remove_item(self, item_id: int):
+        self.items = [i for i in self.items if i.id != item_id]
+
+    def get_items(self):
+        return self.items
+
+    def unique_items(self):
+        return set(self.items)
+
+    def to_dict(self):
+        return {item.id: item for item in self.items}
