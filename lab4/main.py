@@ -53,3 +53,23 @@ def player_from_string():
     except ValueError as e:
         return f"Ошибка: {e}"
 
+#task 3
+class Item:
+    def _init_(self, item_id: int, name: str, power: int):
+        self.id = item_id
+        self.name = name.strip().title()
+        self.power = power
+
+    def _str_(self):
+        return f"Item(id={self.id}, name='{self.name}', power={self.power})"
+
+    def _eq_(self, other):
+        return self.id == other.id
+
+    def _hash_(self):
+        return hash(self.id)
+
+@app.route('/item')
+def item_info():
+    i = Item(1, " Sword ", 50)
+    return str(i)
