@@ -1,140 +1,276 @@
-#ex 1
-users = set()
-buy_count = 0
-total_sum = 0
-user_spend = {}
+from flask import Flask
+from flasgger import Swagger
+from datetime import datetime
+import random
+import ast
 
-with open("shop_logs.txt", "r", encoding="utf-8") as f:
-    for line in f:
-        parts = line.strip().split(";")
-        date = parts[0]
-        user = parts[1]
-        action = parts[2]
-
-        users.add(user)
-
-        if action == "BUY":
-            amount = int(parts[3]) #amount- сумма, parts[3] сумма покупок, строка --> число
-            buy_count += 1
-            total_sum += amount
-
-            if user not in user_spend:
-                user_spend[user] = amount
-            else:
-                user_spend[user] += amount
-max_user = None
-max_sum = 0
-
-for user in user_spend:
-    if user_spend[user] > max_sum:
-        max_sum = user_spend[user]
-        max_user = user
-if buy_count != 0:
-    avg_check = total_sum / buy_count
-else:
-    avg_check = 0
-with open("report.txt", "w", encoding="utf-8") as r:
-    r.write(f"Қолданушылар саны: {len(users)}\n")
-    r.write(f"Барлық сатылымдар саны: {buy_count}\n")
-    r.write(f"Жалпы сумма: {total_sum}\n")
-    r.write(f"Ең активный пайдаланушы: {max_user}\n")
-    r.write(f"Средний чек: {avg_check}\n")
-with open("report.txt", "r", encoding="utf-8") as f:
-     print(f.read())
-
-#ex2
-import csv
-zhumysshylar = """name,department,salary
-Ali,IT,500000
-Dana,HR,300000
-Arman,IT,600000
-Aruzhan,Marketing,400000
-Dias,IT,450000"""
-employees = []
-with open("employees.csv", "w", encoding='utf-8') as f:
-    f.write(zhumysshylar)
-with open("employees.csv", 'r', encoding='utf-8') as f1:
-    reader = csv.DictReader(f1)
-    for row in reader:
-        row['salary'] = int(row['salary'])
-        employees.append(row)
-
-total_salary = sum(emp['salary'] for emp in employees)
-avg_salary = total_salary / len(employees)
-
-dept_salary = {}
-dept_count = {}
-
-for emp in employees:
-    dept = emp['department']
-    if dept not in dept_salary:
-        dept_salary[dept] = emp['salary']
-        dept_count[dept] = 1
-    else:
-        dept_salary[dept] += emp['salary']
-        dept_count[dept] += 1
-avg_dept_salary = {dept: dept_salary[dept] / dept_count[dept] for dept in dept_salary}
-max_avg_dept = max(dept_salary, key=avg_dept_salary.get)
-highest_paid = max(employees, key=lambda employees: employees['salary'])
-above_avg = [emp for emp in employees if emp['salary'] > avg_salary]
-with open('high_salary.csv', 'w', newline='', encoding='utf-8') as f2:
-    writer = csv.DictWriter(f2, fieldnames=['name', 'department', 'salary'])
-    writer.writeheader()
-    writer.writerows(above_avg)
-print("Ortasha zarplata:", avg_salary)
-print("max_avg_dept:", max_avg_dept)
-print("highest_paid:", highest_paid)
-
-#ex 3
-
-import json
-
-orders_data = [
-    {"order_id": 1, "user": "Ali", "items": ["phone", "case"], "total": 300000},
-    {"order_id": 2, "user": "Dana", "items": ["laptop"], "total": 800000},
-    {"order_id": 3, "user": "Ali", "items": ["mouse", "keyboard"], "total": 70000}
-]
-
-with open("orders.json", "w", encoding="utf-8") as f:
-    json.dump(orders_data, f, ensure_ascii=False, indent=2)
-
-with open("orders.json", "r", encoding="utf-8") as f:
-    orders = json.load(f)
-
-total_revenue = 0
-user_orders = {}
-item_count = {}
-top_user = ""
-max_order_price = 0
-most_popular_item = ""
-max_item_count = 0
-total_items_sold = 0
-for order in orders:
-    total_revenue += order['total']
-    user = order['user']
+app = Flask(__name__)
+swagger = Swagger(app)
 
 
-    if user not in user_orders:
-        user_orders[user] = 0
-    user_orders[user] += 1
+#1 esep
+class Player:
+    def __init__(self, player_id, name, hp):
+        self._id = player_id
+        self._name = name.strip().title()
+        self._hp = 0 if hp < 0 else hp
 
-    if order["total"] > max_order_price:
-        max_order_price = order["total"]
-        top_user = user
+    def __str__(self):
+        return f"Player(id={self._id}, name='{self._name}', hp={self._hp})"
 
-    for item in order["items"]:
-        total_items_sold += 1
-        if item not in item_count:
-            item_count[item] = 0
-        item_count[item] += 1
-
-for item in item_count:
-    if item_count[item] > max_item_count:
-        max_item_count = item_count[item]
-        most_popular_item = item
+    def __del__(self):
+        print(f"Player {self._name} удалён")
 
 
-print("Қолданушы бойынша заказ:", user_orders)
-print("Барлығы сатылған товар:", total_items_sold)
-print("Топ-қодануша:", top_user)
-print("Ең көп сатлылған товар:", most_popular_item)
+@app.route('/player')
+def player_info():
+    return str(Player(1, " john ", 120))
+
+
+#2 esep
+@classmethod
+def from_string(cls, data):
+    parts = data.split(',')
+    return cls(int(parts[0].strip()), parts[1].strip(), int(parts[2].strip()))
+
+Player.from_string = from_string
+
+
+@app.route('/player-from-string')
+def player_from_string():
+    return str(Player.from_string("2, alice , 90"))
+
+
+#3 esep
+class Item:
+    def __init__(self, id, name, power):
+        self.id = id
+        self.name = name.strip().title()
+        self.power = power
+
+    def __str__(self):
+        return f"Item(id={self.id}, name='{self.name}', power={self.power})"
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __hash__(self):
+        return hash(self.id)
+
+
+@app.route('/item')
+def item_info():
+    return str(Item(1, " Sword ", 50))
+
+
+#4 esep
+class Inventory:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        if not any(i.id == item.id for i in self.items):
+            self.items.append(item)
+
+    def get_items(self):
+        return self.items
+
+
+@app.route('/inventory')
+def inventory_info():
+    inv = Inventory()
+    inv.add_item(Item(1, "Sword", 50))
+    return str(inv.get_items())
+
+
+#5 esep
+def get_strong_items(self, min_power):
+    return [i for i in self.items if i.power >= min_power]
+
+Inventory.get_strong_items = get_strong_items
+
+
+@app.route('/strong-items')
+def strong_items():
+    inv = Inventory()
+    inv.add_item(Item(1, "Sword", 50))
+    inv.add_item(Item(2, "Shield", 20))
+    return str(inv.get_strong_items(30))
+
+
+#6 esep
+class Event:
+    def __init__(self, type, data):
+        self.type = type
+        self.data = data
+        self.timestamp = datetime.now()
+
+    def __str__(self):
+        return f"{self.type} {self.data}"
+
+
+@app.route('/event')
+def event_info():
+    return str(Event("ATTACK", {"damage": 10}))
+
+
+#7 esep
+def handle_event(player, event):
+    if event.type == "ATTACK":
+        player._hp -= event.data["damage"]
+
+
+@app.route('/handle-event')
+def handle_event_route():
+    p = Player(1, "john", 100)
+    handle_event(p, Event("ATTACK", {"damage": 10}))
+    return str(p)
+
+
+#8 esep
+class Logger:
+    def log(self, event, player, filename):
+        with open(filename, "a") as f:
+            f.write(f"{event.timestamp};{player._id};{event.type};{event.data}\n")
+
+
+@app.route('/write-log')
+def write_log():
+    Logger().log(Event("ATTACK", {"damage": 10}), Player(1, "a", 100), "log.txt")
+    return "ok"
+
+
+#9 esep
+def read_logs(self, filename):
+    events = []
+    with open(filename, "r") as f:
+        for line in f:
+            parts = line.split(";")
+            events.append(Event(parts[2], {"data": parts[3]}))
+    return events
+
+Logger.read_logs = read_logs
+
+
+@app.route('/read-logs')
+def read_logs_route():
+    return str(Logger().read_logs("log.txt"))
+
+
+#10 esep
+class EventIterator:
+    def __init__(self, events):
+        self.events = events
+        self.index = 0
+
+    def __next__(self):
+        if self.index >= len(self.events):
+            raise StopIteration
+        e = self.events[self.index]
+        self.index += 1
+        return e
+
+
+@app.route('/iterator')
+def iterator():
+    return "ok"
+
+
+#11 esep
+def damage_stream(events):
+    for e in events:
+        if e.type == "ATTACK":
+            yield e.data["damage"]
+
+
+@app.route('/damage')
+def damage():
+    return str(list(damage_stream([Event("ATTACK", {"damage": 5})])))
+
+
+#12 esep
+def generate_events(players, items, n):
+    return [Event("ATTACK", {"damage": 10}) for _ in range(n)]
+
+
+@app.route('/generate')
+def generate():
+    return str(generate_events([], [], 3))
+
+
+#13 esep
+def analyze_logs(events):
+    return {"total": sum(e.data.get("damage", 0) for e in events)}
+
+
+@app.route('/analyze')
+def analyze():
+    return str(analyze_logs([Event("ATTACK", {"damage": 10})]))
+
+
+#14 esep
+decide_action = lambda p: "HEAL" if p._hp < 30 else "ATTACK"
+
+
+@app.route('/action')
+def action():
+    return decide_action(Player(1, "a", 20))
+
+
+#15 esep
+class Warrior(Player):
+    pass
+
+
+class Mage(Player):
+    pass
+
+
+@app.route('/warrior')
+def warrior():
+    return str(Warrior(1, "w", 100))
+
+
+#16 esep
+@app.route('/hp')
+def hp():
+    return str(Player(1, "a", -10)._hp)
+
+
+#17 esep
+@app.route('/delete')
+def delete():
+    p = Player(1, "a", 10)
+    del p
+    return "deleted"
+
+
+#18 esep
+@app.route('/inventory-iter')
+def inv_iter():
+    inv = Inventory()
+    inv.add_item(Item(1, "sword", 50))
+    return str([i for i in inv.items])
+
+
+#19 esep
+@app.route('/analyze-inventory')
+def analyze_inv():
+    inv = Inventory()
+    inv.add_item(Item(1, "sword", 50))
+    return str(set(inv.items))
+
+
+#20 esep
+@app.route('/main')
+def main():
+    return "done"
+
+
+@app.route('/')
+def home():
+    return "server working"
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)

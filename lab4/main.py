@@ -117,3 +117,16 @@ def write_log():
     Logger().log(Event("ATTACK", {"damage": 10}), Player(1, "a", 100), "log.txt")
     return "ok"
 
+#task 9
+def read_logs(self, filename):
+    events = []
+    with open(filename, "r") as f:
+        for line in f:
+            parts = line.split(";")
+            events.append(Event(parts[2], {"data": parts[3]}))
+    return events
+Logger.read_logs = read_logs
+
+@app.route('/read-logs')
+def read_logs_route():
+    return str(Logger().read_logs("log.txt"))
