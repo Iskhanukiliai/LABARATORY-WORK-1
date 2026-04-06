@@ -5,21 +5,22 @@ swagger = Swagger(app)
 
 #task 1
 class Player:
-    def __init__(self, player_id: int, name: str, hp: int):
+    def __init__(self, player_id, name, hp):
         self._id = player_id
         self._name = name.strip().title()
-        self.inventory = Inventory()
-        if hp < 0:
-
-            self._hp = 0
-        else:
-            self._hp = hp
+        self._hp = 0 if hp < 0 else hp
 
     def __str__(self):
         return f"Player(id={self._id}, name='{self._name}', hp={self._hp})"
 
     def __del__(self):
         print(f"Player {self._name} удалён")
+
+
+@app.route('/task1')
+def task1():
+    p = Player(1, " john ", 120)
+    return str(p)
 
 #task 2
     @classmethod
@@ -94,3 +95,9 @@ class Inventory:
 
     def to_dict(self):
         return {item.id: item for item in self.items}
+
+#task 5
+    def get_strong_items(self, min_power: int):
+        check = lambda item: item.power >= min_power
+        return [item for item in self.items if check(item)]
+
