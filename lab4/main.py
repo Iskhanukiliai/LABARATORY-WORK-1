@@ -147,3 +147,14 @@ class EventIterator:
 def iterator():
     return "ok"
 
+#task 11
+def damage_stream(events):
+    for e in events:
+        if e.type == "ATTACK":
+            yield e.data["damage"]
+
+@app.route('/damage')
+def damage():
+    return str(list(damage_stream([Event("ATTACK", {"damage": 5})])))
+
+
