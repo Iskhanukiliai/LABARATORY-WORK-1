@@ -1,5 +1,9 @@
 from flask import Flask
 from flasgger import Swagger
+from datetime import datetime
+import random
+import ast
+
 app = Flask(__name__)
 swagger = Swagger(app)
 
@@ -9,95 +13,85 @@ class Player:
         self._id = player_id
         self._name = name.strip().title()
         self._hp = 0 if hp < 0 else hp
-
     def __str__(self):
         return f"Player(id={self._id}, name='{self._name}', hp={self._hp})"
-
     def __del__(self):
         print(f"Player {self._name} удалён")
 
-
-@app.route('/task1')
-def task1():
-    p = Player(1, " john ", 120)
-    return str(p)
-
-#task 2
-    @classmethod
-    def from_string(cls, data: str):
-        parts = data.split(',')
-
-        if len(parts) != 3:
-            raise ValueError("Неверный формат строки")
-
-        try:
-            player_id = int(parts[0].strip())
-            name = parts[1].strip()
-            hp = int(parts[2].strip())
-        except:
-            raise ValueError("Ошибка преобразования данных")
-
-        return cls(player_id, name, hp)
-
-@app.route('/')
-def home():
-    return "Сервер работает"
 @app.route('/player')
 def player_info():
-    p = Player(1, " john ", 120)
-    return str(p)
+    return str(Player(1, " john ", 120))
+
+
+#task 2
+@classmethod
+def from_string(cls, data):
+    parts = data.split(',')
+    return cls(int(parts[0].strip()), parts[1].strip(), int(parts[2].strip()))
+Player.from_string = from_string
+
 @app.route('/player-from-string')
 def player_from_string():
-    try:
-        p = Player.from_string("2, alice , 90")
-        return str(p)
-    except ValueError as e:
-        return f"Ошибка: {e}"
+    return str(Player.from_string("2, alice , 90"))
+
 
 #task 3
 class Item:
-    def _init_(self, item_id: int, name: str, power: int):
-        self.id = item_id
+    def __init__(self, id, name, power):
+        self.id = id
         self.name = name.strip().title()
         self.power = power
-
-    def _str_(self):
+    def __str__(self):
         return f"Item(id={self.id}, name='{self.name}', power={self.power})"
-
-    def _eq_(self, other):
+    def __eq__(self, other):
         return self.id == other.id
-
-    def _hash_(self):
+    def __hash__(self):
         return hash(self.id)
 
 @app.route('/item')
 def item_info():
-    i = Item(1, " Sword ", 50)
-    return str(i)
+    return str(Item(1, " Sword ", 50))
+
 
 #task 4
 class Inventory:
     def __init__(self):
         self.items = []
-
     def add_item(self, item):
         if not any(i.id == item.id for i in self.items):
             self.items.append(item)
-
-    def remove_item(self, item_id: int):
-        self.items = [i for i in self.items if i.id != item_id]
-
     def get_items(self):
         return self.items
 
-    def unique_items(self):
-        return set(self.items)
+@app.route('/inventory')
+def inventory_info():
+    inv = Inventory()
+    inv.add_item(Item(1, "Sword", 50))
+    return str(inv.get_items())
 
-    def to_dict(self):
-        return {item.id: item for item in self.items}
 
 #task 5
-    def get_strong_items(self, min_power: int):
-        check = lambda item: item.power >= min_power
-        return [item for item in self.items if check(item)]
+def get_strong_items(self, min_power):
+    return [i for i in self.items if i.power >= min_power]
+Inventory.get_strong_items = get_strong_items
+
+@app.route('/strong-items')
+def strong_items():
+    inv = Inventory()
+    inv.add_item(Item(1, "Sword", 50))
+    inv.add_item(Item(2, "Shield", 20))
+    return str(inv.get_strong_items(30))
+
+#task 6
+class Event:
+    def __init__(self, type, data):
+        self.type = type
+        self.data = data
+        self.timestamp = datetime.now()
+    def __str__(self):
+        return f"{self.type} {self.data}"
+
+@app.route('/event')
+def event_info():
+    return str(Event("ATTACK", {"damage": 10}))
 
