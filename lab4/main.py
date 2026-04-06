@@ -95,3 +95,15 @@ class Event:
 def event_info():
     return str(Event("ATTACK", {"damage": 10}))
 
+#7 esep
+def handle_event(player, event):
+    if event.type == "ATTACK":
+        player._hp -= event.data["damage"]
+
+
+@app.route('/handle-event')
+def handle_event_route():
+    p = Player(1, "john", 100)
+    handle_event(p, Event("ATTACK", {"damage": 10}))
+    return str(p)
+
