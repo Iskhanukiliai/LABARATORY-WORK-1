@@ -130,3 +130,20 @@ Logger.read_logs = read_logs
 @app.route('/read-logs')
 def read_logs_route():
     return str(Logger().read_logs("log.txt"))
+
+#task 10
+class EventIterator:
+    def __init__(self, events):
+        self.events = events
+        self.index = 0
+    def __next__(self):
+        if self.index >= len(self.events):
+            raise StopIteration
+        e = self.events[self.index]
+        self.index += 1
+        return e
+
+@app.route('/iterator')
+def iterator():
+    return "ok"
+
