@@ -95,15 +95,25 @@ class Event:
 def event_info():
     return str(Event("ATTACK", {"damage": 10}))
 
-#7 esep
+#task 7
 def handle_event(player, event):
     if event.type == "ATTACK":
         player._hp -= event.data["damage"]
-
 
 @app.route('/handle-event')
 def handle_event_route():
     p = Player(1, "john", 100)
     handle_event(p, Event("ATTACK", {"damage": 10}))
     return str(p)
+
+#task 8
+class Logger:
+    def log(self, event, player, filename):
+        with open(filename, "a") as f:
+            f.write(f"{event.timestamp};{player._id};{event.type};{event.data}\n")
+
+@app.route('/write-log')
+def write_log():
+    Logger().log(Event("ATTACK", {"damage": 10}), Player(1, "a", 100), "log.txt")
+    return "ok"
 
