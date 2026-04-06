@@ -165,3 +165,11 @@ def generate_events(players, items, n):
 @app.route('/generate')
 def generate():
     return str(generate_events([], [], 3))
+
+#13 esep
+def analyze_logs(events):
+    return {"total": sum(e.data.get("damage", 0) for e in events)}
+
+@app.route('/analyze')
+def analyze():
+    return str(analyze_logs([Event("ATTACK", {"damage": 10})]))
