@@ -157,4 +157,11 @@ def damage_stream(events):
 def damage():
     return str(list(damage_stream([Event("ATTACK", {"damage": 5})])))
 
+#task 12
+def generate_events(players, items, n):
+    return [Event("ATTACK", {"damage": 10}) for _ in range(n)]
 
+
+@app.route('/generate')
+def generate():
+    return str(generate_events([], [], 3))
