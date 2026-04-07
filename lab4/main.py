@@ -1,175 +1,121 @@
 from flask import Flask
-from flasgger import Swagger
-from datetime import datetime
-import random
-import ast
 
 app = Flask(__name__)
-swagger = Swagger(app)
 
-#task 1
+
 class Player:
     def __init__(self, player_id, name, hp):
         self._id = player_id
         self._name = name.strip().title()
-        self._hp = 0 if hp < 0 else hp
+        self._hp = hp if hp >= 0 else 0
+
     def __str__(self):
         return f"Player(id={self._id}, name='{self._name}', hp={self._hp})"
+
     def __del__(self):
         print(f"Player {self._name} удалён")
 
-@app.route('/player')
-def player_info():
-    return str(Player(1, " john ", 120))
+    @classmethod
+    def from_string(cls, data: str):
+        parts = [x.strip() for x in data.split(",")]
+        if len(parts) != 3:
+            raise ValueError("Invalid format")
+        try:
+            player_id = int(parts[0])
+            name = parts[1]
+            hp = int(parts[2])
+        except:
+            raise ValueError("Invalid data")
+        return cls(player_id, name, hp)
 
 
-#task 2
-@classmethod
-def from_string(cls, data):
-    parts = data.split(',')
-    return cls(int(parts[0].strip()), parts[1].strip(), int(parts[2].strip()))
-Player.from_string = from_string
-
-@app.route('/player-from-string')
-def player_from_string():
-    return str(Player.from_string("2, alice , 90"))
+@app.route("/player")
+def task1():
+    p = Player(1, " john ", 120)
+    return str(p)
 
 
-#task 3
 class Item:
-    def __init__(self, id, name, power):
-        self.id = id
+    def __init__(self, item_id, name, power):
+        self.id = item_id
         self.name = name.strip().title()
         self.power = power
+
     def __str__(self):
         return f"Item(id={self.id}, name='{self.name}', power={self.power})"
+
     def __eq__(self, other):
+        if not isinstance(other, Item):
+            return False
         return self.id == other.id
+
     def __hash__(self):
         return hash(self.id)
 
-@app.route('/item')
-def item_info():
-    return str(Item(1, " Sword ", 50))
 
-
-#task 4
-class Inventory:
-    def __init__(self):
-        self.items = []
-    def add_item(self, item):
-        if not any(i.id == item.id for i in self.items):
-            self.items.append(item)
-    def get_items(self):
-        return self.items
-
-@app.route('/inventory')
-def inventory_info():
-    inv = Inventory()
-    inv.add_item(Item(1, "Sword", 50))
-    return str(inv.get_items())
-
-
-#task 5
-def get_strong_items(self, min_power):
-    return [i for i in self.items if i.power >= min_power]
-Inventory.get_strong_items = get_strong_items
-
-@app.route('/strong-items')
-def strong_items():
-    inv = Inventory()
-    inv.add_item(Item(1, "Sword", 50))
-    inv.add_item(Item(2, "Shield", 20))
-    return str(inv.get_strong_items(30))
-
-#task 6
-class Event:
-    def __init__(self, type, data):
-        self.type = type
-        self.data = data
-        self.timestamp = datetime.now()
-    def __str__(self):
-        return f"{self.type} {self.data}"
-
-@app.route('/event')
-def event_info():
-    return str(Event("ATTACK", {"damage": 10}))
-
-#task 7
-def handle_event(player, event):
-    if event.type == "ATTACK":
-        player._hp -= event.data["damage"]
-
-@app.route('/handle-event')
-def handle_event_route():
-    p = Player(1, "john", 100)
-    handle_event(p, Event("ATTACK", {"damage": 10}))
+@app.route("/player-from-string")
+def task2():
+    p = Player.from_string("2, alice , 90")
     return str(p)
 
-#task 8
-class Logger:
-    def log(self, event, player, filename):
-        with open(filename, "a") as f:
-            f.write(f"{event.timestamp};{player._id};{event.type};{event.data}\n")
 
-@app.route('/write-log')
-def write_log():
-    Logger().log(Event("ATTACK", {"damage": 10}), Player(1, "a", 100), "log.txt")
-    return "ok"
-
-#task 9
-def read_logs(self, filename):
-    events = []
-    with open(filename, "r") as f:
-        for line in f:
-            parts = line.split(";")
-            events.append(Event(parts[2], {"data": parts[3]}))
-    return events
-Logger.read_logs = read_logs
-
-@app.route('/read-logs')
-def read_logs_route():
-    return str(Logger().read_logs("log.txt"))
-
-#task 10
-class EventIterator:
-    def __init__(self, events):
-        self.events = events
-        self.index = 0
-    def __next__(self):
-        if self.index >= len(self.events):
-            raise StopIteration
-        e = self.events[self.index]
-        self.index += 1
-        return e
-
-@app.route('/iterator')
-def iterator():
-    return "ok"
-
-#task 11
-def damage_stream(events):
-    for e in events:
-        if e.type == "ATTACK":
-            yield e.data["damage"]
-
-@app.route('/damage')
-def damage():
-    return str(list(damage_stream([Event("ATTACK", {"damage": 5})])))
-
-#task 12
-def generate_events(players, items, n):
-    return [Event("ATTACK", {"damage": 10}) for _ in range(n)]
+@app.route("/item")
+def task3():
+    i = Item(1, " Sword ", 50)
+    return str(i)
 
 
-@app.route('/generate')
-def generate():
-    return str(generate_events([], [], 3))
+class Inventory:
+    def __init__(self):
+        self._items = []
 
-#13 esep
-def analyze_logs(events):
-    return {"total": sum(e.data.get("damage", 0) for e in events)}
+    def add_item(self, item: Item):
+        for x in self._items:
+            if x.id == item.id:
+                return
+        self._items.append(item)
 
-@app.route('/analyze')
-def analyze():
-    return str(analyze_logs([Event("ATTACK", {"damage": 10})]))
+    def remove_item(self, item_id: int):
+        self._items = [item for item in self._items if item.id != item_id]
+
+    def get_items(self):
+        return self._items
+
+    def unique_items(self):
+        return set(self._items)
+
+    def to_dict(self):
+        return {item.id: str(item) for item in self._items}
+
+
+@app.route("/inventory")
+def task4():
+    inv = Inventory()
+    inv.add_item(Item(1, " Sword ", 50))
+    inv.add_item(Item(2, " Shield ", 20))
+    inv.add_item(Item(1, " Sword ", 50))
+
+    result = []
+    result.append("Items:")
+    for item in inv.get_items():
+        result.append(str(item))
+
+    result.append("")
+    result.append("Unique items:")
+    for item in inv.unique_items():
+        result.append(str(item))
+
+    result.append("")
+    result.append("Dictionary:")
+    result.append(str(inv.to_dict()))
+
+    return "<br>".join(result)
+
+
+@app.route("/")
+def home():
+    return
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
