@@ -155,6 +155,11 @@ def damage_generator(events):
     for e in events:
         if e.type == "ATTACK":
             yield e.data.get("damage", 0)
+
+#task 12, 14
+ai_decision = lambda hp: "HEAL" if hp < 30 else "ATTACK"
+
+
 # task20
 @app.route('/')
 def home():
