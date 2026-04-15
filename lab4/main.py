@@ -150,6 +150,11 @@ class Logger:
             return ["Лог-файл еще не создан"]
         return logs
 
+#task 10, 11
+def damage_generator(events):
+    for e in events:
+        if e.type == "ATTACK":
+            yield e.data.get("damage", 0)
 # task20
 @app.route('/')
 def home():
