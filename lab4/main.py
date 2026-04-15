@@ -159,6 +159,21 @@ def damage_generator(events):
 #task 12, 14
 ai_decision = lambda hp: "HEAL" if hp < 30 else "ATTACK"
 
+#task 13, 19
+def analyze_inventory(players_list):
+    all_items = []
+    for p in players_list:
+        #task 18
+        for item in p.inventory:
+            all_items.append(item)
+
+    #task 19
+    unique_names = {item.name for item in all_items}
+
+    return {
+        "total_items_found": len(all_items),
+        "unique_items_count": len(unique_names)
+    }
 
 # task20
 @app.route('/')
