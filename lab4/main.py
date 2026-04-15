@@ -6,7 +6,6 @@ import random
 app = Flask(__name__)
 swagger = Swagger(app)
 
-
 # task1
 class Item:
     def __init__(self, item_id, name, power):
@@ -69,6 +68,29 @@ class Inventory:
     def get_items_list(self):
         return self._items
 
+#task 2,4
+class Player:
+    def _init_(self, player_id: int, name: str, hp: int):
+        #task 16
+        self._id = player_id
+        self._name = name.strip().title()
+        self._hp = max(0, hp)
+        self._inventory = Inventory()
+
+    #task 16
+    @property
+    def hp(self):
+        return self._hp
+    @property
+    def inventory(self):
+        return self._inventory
+
+    #task 17
+    def _del_(self):
+        print(f"Player {self._name} удалён из памяти")
+
+    def _str_(self):
+        return f"Player(id={self._id}, name='{self._name}', hp={self._hp})"
 
 # task20
 @app.route('/')
