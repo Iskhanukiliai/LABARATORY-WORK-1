@@ -92,6 +92,64 @@ class Player:
     def _str_(self):
         return f"Player(id={self._id}, name='{self._name}', hp={self._hp})"
 
+    #task 7
+    def handle_event(self, event):
+        if event.type == "ATTACK":
+            damage = event.data.get("damage", 0)
+            self._hp = max(0, self._hp - damage)
+        elif event.type == "LOOT":
+            item = event.data.get("item")
+            if item:
+                self._inventory.add_item(item)
+
+
+#task 15
+class Warrior(Player):
+    def handle_event(self, event):
+        if event.type == "ATTACK":
+            raw_damage = event.data.get("damage", 0)
+            reduced_damage = int(raw_damage * 0.9)
+            self._hp = max(0, self._hp - reduced_damage)
+        else:
+            super().handle_event(event)
+
+class Mage(Player):
+    def handle_event(self, event):
+        if event.type == "LOOT":
+            item = event.data.get("item")
+            if item:
+                item.power = int(item.power * 1.1)
+                self._inventory.add_item(item)
+        else:
+            super().handle_event(event)
+
+#task 6
+class Event:
+    def _init_(self, event_type: str, data: dict):
+        self.type = event_type
+        self.data = data
+        self.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    def _str_(self):
+        return f"[{self.timestamp}] {self.type}: {self.data}"
+
+#task 8,9
+class Logger:
+    def log(self, event, player, filename="game_log.txt"):
+        line = f"{event.timestamp};{player._id};{event.type};{event.data}\n"
+        with open(filename, "a", encoding="utf-8") as f:
+            f.write(line)
+
+    def read_logs(self, filename="game_log.txt"):
+        logs = []
+        try:
+            with open(filename, "r", encoding="utf-8") as f:
+                for line in f:
+                    logs.append(line.strip())
+        except FileNotFoundError:
+            return ["Лог-файл еще не создан"]
+        return logs
+
 # task20
 @app.route('/')
 def home():
