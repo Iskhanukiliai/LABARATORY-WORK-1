@@ -49,6 +49,25 @@ class Player:
             item = event.data.get("item")
             if item:
                 self._inventory.add_item(item)
+#task 3
+class Inventory:
+    def _init_(self):
+        #task 16
+        self._items = []
+
+    def add_item(self, item: Item):
+        if item.id not in [i.id for i in self._items]:
+            self._items.append(item)
+
+    #task 18
+    def _iter_(self):
+        return iter(self._items)
+
+    def get_strong_items(self, threshold):
+        return [i for i in self._items if i.power > threshold]
+
+    def get_items_list(self):
+        return self._items
 
 
 # task20
