@@ -175,7 +175,40 @@ def analyze_inventory(players_list):
         "unique_items_count": len(unique_names)
     }
 
-# task20
+#task 20
+@app.route('/simulate')
+def simulate():
+    """
+    Запуск полной цепочки задач (1-20)
+    ---
+    responses:
+      200:
+        description: Результат игры
+    """
+    warrior = Warrior(1, "Aiganym", 100)
+    mage = Mage(2, "Akzhan", 100)
+
+    sword = Item(101, "Fire Sword", 50)
+    e1 = Event("ATTACK", {"damage": random.randint(30, 60)})
+    e2 = Event("LOOT", {"item": sword})
+
+    warrior.handle_event(e1)
+    mage.handle_event(e2)
+
+    logger = Logger()
+    logger.log(e1, warrior)
+    logger.log(e2, mage)
+
+    stats = analyze_inventory([warrior, mage])
+
+    return {
+        "status": "Simulation Complete",
+        "warrior_hp": warrior.hp,
+        "mage_inventory_count": stats["total_items_found"],
+        "unique_items_found": stats["unique_items_count"],
+        "ai_suggests": ai_decision(warrior.hp)
+    }
+
 @app.route('/')
 def home():
     return "Сервер жұмыс істеп тұр"
