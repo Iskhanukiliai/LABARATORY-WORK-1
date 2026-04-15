@@ -1,0 +1,4 @@
+2026-04-15 19:32:11;1;ATTACK;{'damage': 53}
+2026-04-15 19:32:11;2;LOOT;{'item': <__main__.Item object at 0x108d90050>}
+2026-04-15 19:32:32;1;ATTACK;{'damage': 40}
+2026-04-15 19:32:32;2;LOOT;{'item': <__main__.Item object at 0x10b4e8050>}
