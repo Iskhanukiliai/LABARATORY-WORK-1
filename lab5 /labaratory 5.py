@@ -1,31 +1,25 @@
-#task 1
+# task 1
 class User:
     def __init__(self, user_id, name, email):
-
         self._id = user_id
         self._name = name.strip().title()
-
         email = email.lower()
         if '@' not in email:
-            raise ValueError("Invalid email: must contain '@'")[cite: 14]
+            raise ValueError("Invalid email: must contain '@'")
         self._email = email
 
     def __str__(self):
         return f"User(id={self._id}, name='{self._name}', email='{self._email}')"
-
     def __del__(self):
         print(f"User {self._name} deleted")
-#task 2
-@classmethod
+
+    # task 2
+    @classmethod
     def from_string(cls, data: str):
         user_id_str, name, email = data.split(',')
         return cls(int(user_id_str.strip()), name.strip(), email.strip())
-u1 = User(1, "john doe", "John@Example.COM")
-print(u1)
-u2 = User.from_string("2, Alice Wonderland, alice@wonder.com")
-print(u2)
 
-#task3
+# task 3
 class Product:
     def __init__(self, product_id, name, price, category):
         self.id = int(product_id)
@@ -48,7 +42,8 @@ class Product:
             'price': self.price,
             'category': self.category
         }
-#task 4
+
+# task 4
 class Inventory:
     def __init__(self):
         self.products = {}
@@ -64,3 +59,26 @@ class Inventory:
         return list(self.products.values())
     def unique_products(self):
         return set(self.products.values())
+
+    # task 5
+    def filter_by_price(self, min_price: float):
+        all_prods = self.get_all_products()
+        check_price = lambda p: p.price >= min_price
+        return [p for p in all_prods if check_price(p)]
+
+if __name__ == "__main__":
+    print("--- Проверка работы Инвентаря (Задача 5) ---")
+
+    p1 = Product(1, "Laptop", 1200.0, "Electronics")
+    p2 = Product(2, "Mouse", 25.0, "Electronics")
+
+    inv = Inventory()
+    inv.add_product(p1)
+    inv.add_product(p2)
+
+    min_price = 100.0
+    expensive_items = inv.filter_by_price(min_price)
+
+    print(f"Товары дороже {min_price}:")
+    for p in expensive_items:
+        print(f"- {p.name}: {p.price}")
