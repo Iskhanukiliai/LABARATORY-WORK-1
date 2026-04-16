@@ -48,3 +48,19 @@ class Product:
             'price': self.price,
             'category': self.category
         }
+#task 4
+class Inventory:
+    def __init__(self):
+        self.products = {}
+    def add_product(self, product: Product):
+        if product.id not in self.products:
+            self.products[product.id] = product
+    def remove_product(self, product_id: int):
+        if product_id in self.products:
+            del self.products[product_id]
+    def get_product(self, product_id: int):
+        return self.products.get(product_id)
+    def get_all_products(self):
+        return list(self.products.values())
+    def unique_products(self):
+        return set(self.products.values())
