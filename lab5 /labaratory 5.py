@@ -24,3 +24,27 @@ u1 = User(1, "john doe", "John@Example.COM")
 print(u1)
 u2 = User.from_string("2, Alice Wonderland, alice@wonder.com")
 print(u2)
+
+#task3
+class Product:
+    def __init__(self, product_id, name, price, category):
+        self.id = int(product_id)
+        self.name = str(name)
+        self.price = float(price)
+        self.category = str(category)
+
+    def __str__(self):
+        return f"Product(id={self.id}, name='{self.name}', price={self.price}, category='{self.category}')"
+    def __hash__(self):
+        return hash(self.id)
+    def __eq__(self, other):
+        if not isinstance(other, Product):
+            return False
+        return self.id == other.id
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'price': self.price,
+            'category': self.category
+        }
