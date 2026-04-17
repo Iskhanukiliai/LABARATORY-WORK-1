@@ -66,8 +66,28 @@ class Inventory:
         check_price = lambda p: p.price >= min_price
         return [p for p in all_prods if check_price(p)]
 
+#task 6
+class Logger:
+    @staticmethod
+    def log_action(user: User, action: str, product: Product, filename: str):
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(filename, "a", encoding="utf-8") as f:
+            f.write(f"{timestamp}; {user._id}; {action}; {product.id}\n")
+
+    @staticmethod
+    def read_logs(filename: str):
+        logs = []
+        try:
+            with open(filename, "r", encoding="utf-8") as f:
+                for line in f:
+                    t, uid, act, pid = line.strip().split("; ")
+                    logs.append({'timestamp': t, 'user_id': uid, 'action': act, 'product_id': pid})
+        except FileNotFoundError:
+            pass
+        return logs
+
 if __name__ == "__main__":
-    print("--- Проверка работы Инвентаря (Задача 5) ---")
+    print("task5 тексеру")
 
     p1 = Product(1, "Laptop", 1200.0, "Electronics")
     p2 = Product(2, "Mouse", 25.0, "Electronics")
@@ -79,6 +99,6 @@ if __name__ == "__main__":
     min_price = 100.0
     expensive_items = inv.filter_by_price(min_price)
 
-    print(f"Товары дороже {min_price}:")
+    print(f"Қымбат тауарлар{min_price}:")
     for p in expensive_items:
         print(f"- {p.name}: {p.price}")
