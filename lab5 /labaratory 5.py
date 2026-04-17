@@ -1,104 +1,75 @@
-# task 1
+import numpy as np
+from fastapi import FastAPI, HTTPException
+import datetime
+
+#task 1, 2
 class User:
-    def __init__(self, user_id, name, email):
+    def __init__(self, user_id: int, name: str, email: str):
         self._id = user_id
         self._name = name.strip().title()
-        email = email.lower()
-        if '@' not in email:
+        email_clean = email.lower().strip()
+        if '@' not in email_clean:
             raise ValueError("Invalid email: must contain '@'")
-        self._email = email
+        self._email = email_clean
+    def to_dict(self):
+        return {"id": self._id, "name": self._name, "email": self._email}
 
-    def __str__(self):
-        return f"User(id={self._id}, name='{self._name}', email='{self._email}')"
-    def __del__(self):
-        print(f"User {self._name} deleted")
-
-    # task 2
     @classmethod
     def from_string(cls, data: str):
-        user_id_str, name, email = data.split(',')
-        return cls(int(user_id_str.strip()), name.strip(), email.strip())
+        parts = [p.strip() for p in data.split(',')]
+        return cls(int(parts[0]), parts[1], parts[2])
 
-# task 3
+@app.get("/test-user")
+def test_user():
+    u = User.from_string("10, ishan ali, ISHAN@gmail.com")
+    return u.to_dict()
+
+#task 3
 class Product:
     def __init__(self, product_id, name, price, category):
         self.id = int(product_id)
         self.name = str(name)
         self.price = float(price)
         self.category = str(category)
-
-    def __str__(self):
-        return f"Product(id={self.id}, name='{self.name}', price={self.price}, category='{self.category}')"
-    def __hash__(self):
-        return hash(self.id)
-    def __eq__(self, other):
-        if not isinstance(other, Product):
-            return False
-        return self.id == other.id
     def to_dict(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'price': self.price,
-            'category': self.category
-        }
+        return {'id': self.id, 'name': self.name, 'price': self.price, 'category': self.category}
 
-# task 4
+
+#task 4
 class Inventory:
     def __init__(self):
         self.products = {}
     def add_product(self, product: Product):
         if product.id not in self.products:
             self.products[product.id] = product
-    def remove_product(self, product_id: int):
-        if product_id in self.products:
-            del self.products[product_id]
-    def get_product(self, product_id: int):
-        return self.products.get(product_id)
     def get_all_products(self):
         return list(self.products.values())
-    def unique_products(self):
-        return set(self.products.values())
 
-    # task 5
-    def filter_by_price(self, min_price: float):
+    #task 5
+    def filter_by_price_numpy(self, min_price: float):
         all_prods = self.get_all_products()
-        check_price = lambda p: p.price >= min_price
-        return [p for p in all_prods if check_price(p)]
+        if not all_prods:
+            return []
 
-#task 6
-class Logger:
-    @staticmethod
-    def log_action(user: User, action: str, product: Product, filename: str):
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        with open(filename, "a", encoding="utf-8") as f:
-            f.write(f"{timestamp}; {user._id}; {action}; {product.id}\n")
+        prices_array = np.array([p.price for p in all_prods])
+        mask = prices_array >= min_price
+        return [all_prods[i] for i, condition in enumerate(mask) if condition]
 
-    @staticmethod
-    def read_logs(filename: str):
-        logs = []
-        try:
-            with open(filename, "r", encoding="utf-8") as f:
-                for line in f:
-                    t, uid, act, pid = line.strip().split("; ")
-                    logs.append({'timestamp': t, 'user_id': uid, 'action': act, 'product_id': pid})
-        except FileNotFoundError:
-            pass
-        return logs
+@app.get("/filter/{min_price}")
+def get_filtered_products(min_price: float):
+    results = inventory.filter_by_price_numpy(min_price)
+    return [p.to_dict() for p in results]
 
-if __name__ == "__main__":
-    print("task5 тексеру")
 
-    p1 = Product(1, "Laptop", 1200.0, "Electronics")
-    p2 = Product(2, "Mouse", 25.0, "Electronics")
+app = FastAPI(title="Lab 5 API: NumPy & FastAPI")
 
-    inv = Inventory()
-    inv.add_product(p1)
-    inv.add_product(p2)
+inventory = Inventory()
+inventory.add_product(Product(1, "Laptop", 1200.0, "Electronics"))
+inventory.add_product(Product(2, "Mouse", 25.0, "Electronics"))
+inventory.add_product(Product(3, "Keyboard", 150.0, "Electronics"))
 
-    min_price = 100.0
-    expensive_items = inv.filter_by_price(min_price)
 
-    print(f"Қымбат тауарлар{min_price}:")
-    for p in expensive_items:
-        print(f"- {p.name}: {p.price}")
+@app.get("/")
+def read_root():
+    a =
+    return
