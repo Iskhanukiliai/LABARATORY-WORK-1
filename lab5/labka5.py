@@ -213,6 +213,20 @@ def test_analytics():
     top_products = my_order.most_expensive_products(2)
     return {"top_expensive": [p.name for p in top_products]}
 
+#task 9
+def price_stream(products: list):
+    for product in products:
+        yield product.price
+
+@app.get("/order/stream-prices")
+def test_stream():
+    products = [
+        Product(1, "Laptop", 1200.0, "Tech"),
+        Product(2, "Mouse", 25.0, "Tech"),
+        Product(3, "Monitor", 300.0, "Tech")]
+    gen = price_stream(products)
+    prices = [p for p in gen]
+    return {"streamed_prices": prices}
 
 
 @app.get("/home")
