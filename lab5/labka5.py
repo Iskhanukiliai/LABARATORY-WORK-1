@@ -135,6 +135,39 @@ def test_filter():
     return {
         "expensive_count": len(expensive_products),
         "names": [p.name for p in expensive_products]}
+#task 6
+import datetime
+
+class Logger:
+    @staticmethod
+    def log_action(user, action: str, product, filename: str = "actions.log"):
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        line = f"{now};{user._id};{action};{product.id}\n"
+        with open(filename, "a", encoding="utf-8") as f:
+            f.write(line)
+
+    @staticmethod
+    def read_logs(filename: str = "actions.log"):
+        logs = []
+        try:
+            with open(filename, "r", encoding="utf-8") as f:
+                for line in f:
+                    parts = line.strip().split(";")
+                    logs.append({
+                        "timestamp": parts[0],
+                        "user_id": int(parts[1]),
+                        "action": parts[2],
+                        "product_id": int(parts[3])})
+        except FileNotFoundError:
+            pass
+        return logs
+
+@app.get("/test-log")
+def test_log():
+    u = User(1, "Ukiliai", "test@mail.com")
+    p = Product(101, "Laptop", 1200.0, "Tech")
+    Logger.log_action(u, "ADD_TO_CART", p)
+    return Logger.read_logs()
 
 @app.get("/home")
 def home():
