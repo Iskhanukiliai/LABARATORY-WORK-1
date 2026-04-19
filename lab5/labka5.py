@@ -169,6 +169,42 @@ def test_log():
     Logger.log_action(u, "ADD_TO_CART", p)
     return Logger.read_logs()
 
+
+#task 7
+class Order:
+    def __init__(self, order_id: int, user):
+        self.id = order_id
+        self.user = user
+        self.products = []
+
+    def add_product(self, product):
+        self.products.append(product)
+
+    def remove_product(self, product_id: int):
+        self.products = [p for p in self.products if p.id != product_id]
+
+    def total_price(self) -> float:
+        return sum(p.price for p in self.products)
+
+    def __str__(self):
+        return f"Order(id={self.id}, user={self.user._name}, total={self.total_price()})"
+
+@app.get("/order-test")
+def test_order():
+    u = User(1, "Ukiliai", "test@mail.com")
+    p1 = Product(101, "Laptop", 1200.0, "Tech")
+    p2 = Product(102, "Mouse", 25.0, "Tech")
+
+    my_order = Order(555, u)
+    my_order.add_product(p1)
+    my_order.add_product(p2)
+
+    return {
+        "order_info": str(my_order),
+        "total": my_order.total_price(),
+        "items": [p.name for p in my_order.products]}
+
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
