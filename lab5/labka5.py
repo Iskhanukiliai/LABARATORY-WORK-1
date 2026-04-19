@@ -120,6 +120,22 @@ def test_inventory():
         "search_102": str(inv.get_product(102)),
         "inventory_dict": {p_id: str(p_obj) for p_id, p_obj in inv.to_dict().items()}}
 
+#task 5
+    def filter_by_price(self, min_price: float) -> list[Product]:
+        check_price = lambda p: p.price >= min_price
+        return [p for p in self._products if check_price(p)]
+
+@app.get("/inventory/filter")
+def test_filter():
+    inv = Inventory()
+    inv.add_product(Product(1, "Laptop", 1200.0, "Electronics"))
+    inv.add_product(Product(2, "Mouse", 25.0, "Electronics"))
+    inv.add_product(Product(3, "Monitor", 300.0, "Electronics"))
+    expensive_products = inv.filter_by_price(100.0)
+    return {
+        "expensive_count": len(expensive_products),
+        "names": [p.name for p in expensive_products]}
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
