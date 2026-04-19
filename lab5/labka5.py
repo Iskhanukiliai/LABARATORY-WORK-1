@@ -313,6 +313,17 @@ def get_categories():
         Product(2, "T-Shirt", 20.0, "Clothing")]
     categories_arr = get_category_array(products)
     return categories_arr.tolist()
+#task 15
+def count_unique_categories(category_array):
+    unique_elements = np.unique(category_array)
+    return len(unique_elements)
+
+@app.get("/products/categories/unique-count")
+def get_unique_count():
+    categories = np.array(["Electronics", "Clothing", "Electronics"])
+    count = count_unique_categories(categories)
+    return int(count)
+
 
 @app.get("/home")
 def home():
