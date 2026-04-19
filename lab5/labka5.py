@@ -288,6 +288,21 @@ def get_stats():
     return [round(mean_val, 2), median_val]
 
 
+#task 13
+def normalize_prices(price_array):
+    p_min = np.min(price_array)
+    p_max = np.max(price_array)
+    if p_max == p_min:
+        return np.zeros_like(price_array)
+    return (price_array - p_min) / (p_max - p_min)
+
+@app.get("/prices/normalize")
+def get_normalized():
+    prices = np.array([1200.0, 25.0, 450.0])
+    normalized = normalize_prices(prices)
+    return [round(float(x), 4) for x in normalized]
+
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
