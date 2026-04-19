@@ -276,6 +276,17 @@ def test_numpy_prices():
         "prices": price_arr.tolist(),
         "mean_price": float(price_arr.mean())}
 
+#task 12
+def get_price_analysis(price_array):
+    return (np.mean(price_array), np.median(price_array))
+
+
+@app.get("/analytics/prices")
+def get_stats():
+    prices = np.array([1200.0, 25.0, 450.0])
+    mean_val, median_val = get_price_analysis(prices)
+    return [round(mean_val, 2), median_val]
+
 
 @app.get("/home")
 def home():
