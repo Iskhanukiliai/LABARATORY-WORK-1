@@ -257,6 +257,26 @@ def test_iterator():
         result_ids.append(order.id)
     return {"iterated_order_ids": result_ids, "total_count": len(result_ids)}
 
+# task 11
+import numpy as np
+
+def get_price_array(products: list):
+    prices = [p.price for p in products]
+    return np.array(prices, dtype=float)
+
+@app.get("/numpy/prices")
+def test_numpy_prices():
+    products = [
+        Product(1, "Laptop", 1200.0, "Tech"),
+        Product(2, "Mouse", 25.0, "Tech"),
+        Product(3, "Monitor", 300.0, "Tech")]
+    price_arr = get_price_array(products)
+    return {
+        "array_type": str(type(price_arr)),
+        "prices": price_arr.tolist(),
+        "mean_price": float(price_arr.mean())}
+
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
