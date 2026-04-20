@@ -480,6 +480,22 @@ def get_filtered_orders_html():
     result_df = filter_orders_by_total(df, 100)
     return result_df.to_html(classes="table table-dark", index=False, border=1)
 
+#task 25
+def group_orders_by_user(df):
+    grouped = df.groupby('user_name')['total'].sum().reset_index()
+    grouped = grouped.rename(columns={'total': 'total_sum'})
+    return grouped
+
+@app.get("/pandas/orders/group", response_class=HTMLResponse)
+def get_grouped_orders_html():
+    data = {
+        "order_id": [101, 103, 102],
+        "user_name": ["John", "John", "Alice"],
+        "total": [1200, 500, 25]
+    }
+    df = pd.DataFrame(data)
+    result_df = group_orders_by_user(df)
+    return result_df.to_html(classes="table table-success", index=False, border=1)
 
 @app.get("/home")
 def home():
