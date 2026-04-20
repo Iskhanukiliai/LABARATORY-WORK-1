@@ -533,6 +533,22 @@ def get_category_avg_html():
     result_df = get_mean_price_by_category(df)
     return result_df.to_html(classes="table table-secondary", index=False, border=1)
 
+#task 29
+def add_discount_column(df):
+    df['discounted_price'] = df['price'] * 0.9
+    return df
+@app.get("/pandas/products/discount", response_class=HTMLResponse)
+def get_discounted_products_html():
+    data = {
+        "id": [1, 2],
+        "name": ["Laptop", "Mouse"],
+        "price": [1200, 25]
+    }
+    df = pd.DataFrame(data)
+    result_df = add_discount_column(df)
+    return result_df.to_html(classes="table table-hover", index=False, border=1)
+
+
 
 @app.get("/home")
 def home():
