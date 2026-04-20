@@ -419,6 +419,28 @@ def get_users_html_table():
     df = create_users_df(users)
     return df.to_html(classes="table table-striped", index=False)
 
+#task 22
+def create_products_df(products: list):
+    data = []
+    for p in products:
+        data.append({
+            "id": p.id,
+            "name": p.name,
+            "category": p.category,
+            "price": p.price
+        })
+    df = pd.DataFrame(data)
+    return df
+
+@app.get("/pandas/products", response_class=HTMLResponse)
+def get_products_html_table():
+    products = [
+        Product(1, "Laptop", 1200.0, "Electronics"),
+        Product(2, "T-Shirt", 20.0, "Clothing")
+    ]
+    df = create_products_df(products)
+    return df.to_html(classes="table table-striped", index=False, border=1)
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
