@@ -388,6 +388,37 @@ def expensive_indices():
     indices = get_expensive_order_indices(order_sums)
     return indices.tolist()
 
+
+#task 21
+import pandas as pd
+from datetime import date
+from fastapi.responses import HTMLResponse
+
+
+def create_users_df(users: list):
+    data = []
+    for u in users:
+        data.append({
+            "id": u._id,
+            "name": u._name,
+            "email": u._email,
+            "registration_date": date.today().strftime("%Y-%m-%d")
+        })
+    df = pd.DataFrame(data)
+    return df
+users = [User(1, "Ukiliai", "ukiliai@gmail.com")]
+df = create_users_df(users)
+print(df)
+
+@app.get("/pandas/users", response_class=HTMLResponse)
+def get_users_html_table():
+    users = [
+        User(1, "John Doe", "john@example.com"),
+        User(2, "Alice", "alice@example.com")
+    ]
+    df = create_users_df(users)
+    return df.to_html(classes="table table-striped", index=False)
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
