@@ -515,6 +515,24 @@ def get_orders_count_html():
     result_df = count_orders_per_user(df)
     return result_df.to_html(classes="table table-warning", index=False, border=1)
 
+#task 28
+def get_mean_price_by_category(df):
+    category_avg = df.groupby('category')['price'].mean().reset_index()
+    category_avg = category_avg.rename(columns={'price': 'mean_price'})
+    return category_avg
+
+@app.get("/pandas/products/category-avg", response_class=HTMLResponse)
+def get_category_avg_html():
+    data = {
+        "id": [1, 2, 3],
+        "name": ["Laptop", "Mouse", "Shirt"],
+        "category": ["Electronics", "Electronics", "Clothing"],
+        "price": [1200, 25, 20]
+    }
+    df = pd.DataFrame(data)
+    result_df = get_mean_price_by_category(df)
+    return result_df.to_html(classes="table table-secondary", index=False, border=1)
+
 
 @app.get("/home")
 def home():
