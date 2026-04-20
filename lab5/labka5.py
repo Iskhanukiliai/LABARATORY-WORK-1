@@ -463,6 +463,23 @@ def get_merged_orders():
     df = merge_users_and_orders(users_data, orders_data)
     return df.to_html(classes="table table-bordered", index=False, border=1)
 
+#task 24
+def filter_orders_by_total(df, min_value=100):
+    filtered_df = df[df['total'] > min_value]
+    return filtered_df
+
+
+@app.get("/pandas/orders/filter", response_class=HTMLResponse)
+def get_filtered_orders_html():
+    data = {
+        "order_id": [101, 102],
+        "user_name": ["John", "Alice"],
+        "total": [1200, 25]
+    }
+    df = pd.DataFrame(data)
+    result_df = filter_orders_by_total(df, 100)
+    return result_df.to_html(classes="table table-dark", index=False, border=1)
+
 
 @app.get("/home")
 def home():
