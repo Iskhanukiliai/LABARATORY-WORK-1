@@ -368,6 +368,15 @@ def get_matrix():
     order_matrix = create_order_matrix([o1, o2])
     return order_matrix.tolist()
 
+#task 19
+def get_average_order_value(order_sums_array):
+    return np.mean(order_sums_array)
+
+@app.get("/analytics/average-order")
+def average_order():
+    order_sums = np.array([1200.0, 1225.0])
+    result = get_average_order_value(order_sums)
+    return float(result)
 
 @app.get("/home")
 def home():
