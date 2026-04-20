@@ -548,6 +548,21 @@ def get_discounted_products_html():
     result_df = add_discount_column(df)
     return result_df.to_html(classes="table table-hover", index=False, border=1)
 
+#task 30
+def sort_products_by_price(df):
+    sorted_df = df.sort_values(by='price', ascending=False)
+    return sorted_df
+
+@app.get("/pandas/products/sort", response_class=HTMLResponse)
+def get_sorted_products_html():
+    data = {
+        "id": [1, 2, 3],
+        "name": ["Laptop", "Mouse", "Monitor"],
+        "price": [1200, 25, 450]
+    }
+    df = pd.DataFrame(data)
+    result_df = sort_products_by_price(df)
+    return result_df.to_html(classes="table table-danger", index=False, border=1)
 
 
 @app.get("/home")
