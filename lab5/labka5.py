@@ -340,6 +340,19 @@ def get_expensive_items():
     result = get_above_average_products(products, prices)
     return [f"Product({p.id}, {p.name}, {p.price}, {p.category})" for p in result]
 
+
+#task 17
+def apply_vector_discount(price_array, discount_percent=10):
+    discount_factor = 1 - (discount_percent / 100)
+    return price_array * discount_factor
+
+@app.get("/prices/apply-discount")
+def get_discounted_prices():
+    prices = np.array([1200.0, 25.0, 450.0])
+    new_prices = apply_vector_discount(prices)
+    return new_prices.tolist()
+
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
