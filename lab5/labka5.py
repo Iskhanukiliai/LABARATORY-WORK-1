@@ -569,6 +569,10 @@ def add_quantity_column(df):
     df['quantity'] = 1
     return df
 
+#task 32
+def add_total_price_column(df):
+    df['total_price'] = df['price'] * df['quantity']
+    return df
 
 @app.get("/home")
 def home():
