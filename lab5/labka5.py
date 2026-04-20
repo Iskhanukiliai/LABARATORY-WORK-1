@@ -497,6 +497,25 @@ def get_grouped_orders_html():
     result_df = group_orders_by_user(df)
     return result_df.to_html(classes="table table-success", index=False, border=1)
 
+#task 27
+def count_orders_per_user(df):
+    counts = df.groupby('user_name')['order_id'].count().reset_index()
+    counts = counts.rename(columns={'order_id': 'orders_count'})
+    return counts
+
+
+@app.get("/pandas/orders/count", response_class=HTMLResponse)
+def get_orders_count_html():
+    data = {
+        "order_id": [101, 103, 102],
+        "user_name": ["John", "John", "Alice"],
+        "total": [1200, 500, 25]
+    }
+    df = pd.DataFrame(data)
+    result_df = count_orders_per_user(df)
+    return result_df.to_html(classes="table table-warning", index=False, border=1)
+
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
