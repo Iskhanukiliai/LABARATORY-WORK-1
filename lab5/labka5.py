@@ -564,6 +564,11 @@ def get_sorted_products_html():
     result_df = sort_products_by_price(df)
     return result_df.to_html(classes="table table-danger", index=False, border=1)
 
+#task 31
+def add_quantity_column(df):
+    df['quantity'] = 1
+    return df
+
 
 @app.get("/home")
 def home():
