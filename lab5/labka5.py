@@ -419,6 +419,7 @@ def get_users_html_table():
     df = create_users_df(users)
     return df.to_html(classes="table table-striped", index=False)
 
+
 #task 22
 def create_products_df(products: list):
     data = []
@@ -440,6 +441,28 @@ def get_products_html_table():
     ]
     df = create_products_df(products)
     return df.to_html(classes="table table-striped", index=False, border=1)
+
+#task 23
+def merge_users_and_orders(users_df, orders_df):
+    merged_df = pd.merge(users_df, orders_df, left_on="id", right_on="user_id")
+    result_df = merged_df.rename(columns={"name": "user_name"})
+    return result_df[["order_id", "user_name", "total"]]
+
+@app.get("/pandas/merged-orders", response_class=HTMLResponse)
+def get_merged_orders():
+    users_data = pd.DataFrame({
+        "id": [1, 2],
+        "name": ["John", "Alice"]
+    })
+
+    orders_data = pd.DataFrame({
+        "order_id": [101, 102],
+        "user_id": [1, 2],
+        "total": [1200, 25]
+    })
+    df = merge_users_and_orders(users_data, orders_data)
+    return df.to_html(classes="table table-bordered", index=False, border=1)
+
 
 @app.get("/home")
 def home():
