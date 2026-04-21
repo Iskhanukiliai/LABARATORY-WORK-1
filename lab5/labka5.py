@@ -615,6 +615,10 @@ def max_order_per_user(df):
 def unique_categories_per_user(df):
     return df.groupby('user_name')['category'].nunique().reset_index(name='unique_categories')
 
+#task 43
+def add_vip_status(df):
+    df['VIP'] = df['total_sum'] > 1000
+    return df
 
 @app.get("/home")
 def home():
