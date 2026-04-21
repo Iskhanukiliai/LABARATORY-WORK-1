@@ -586,6 +586,9 @@ def count_products_by_category(df):
 def mean_price_by_category(df):
     result = df.groupby('category')['price'].mean().reset_index(name='mean_price')
     return result
+#task 36
+def sort_orders_by_total(df):
+    return df.sort_values(by='total_price', ascending=False)
 
 @app.get("/home")
 def home():
