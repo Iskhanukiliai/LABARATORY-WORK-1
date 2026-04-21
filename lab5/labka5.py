@@ -594,6 +594,11 @@ def sort_orders_by_total(df):
 def get_top_n_expensive(df, n=3):
     return df.sort_values(by='total_price', ascending=False).head(n)
 
+#task 38
+def merge_orders_users(orders_df, users_df):
+    merged = pd.merge(orders_df, users_df, on='user_id')
+    return merged[['order_id', 'user_name', 'total_price']]
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
