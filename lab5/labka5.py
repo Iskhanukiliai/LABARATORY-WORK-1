@@ -607,10 +607,13 @@ def mean_order_per_user(df):
 def count_orders_per_user_v2(df):
     return df.groupby('user_name')['order_id'].nunique().reset_index(name='orders_count')
 
-
 # task 41
 def max_order_per_user(df):
     return df.groupby('user_name')['total_price'].max().reset_index(name='max_order')
+
+#task 42
+def unique_categories_per_user(df):
+    return df.groupby('user_name')['category'].nunique().reset_index(name='unique_categories')
 
 
 @app.get("/home")
