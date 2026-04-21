@@ -623,6 +623,27 @@ def add_vip_status(df):
 #task 44
 def sort_users_analytics(df):
     return df.sort_values(by=['total_sum', 'mean_total'], ascending=[False, True])
+#task 45
+@app.get("/pandas/final-report", response_class=HTMLResponse)
+def get_final_report():
+    data = {
+        'user_name': ['John', 'John', 'Alice'],
+        'order_id': [101, 103, 102],
+        'total_price': [1200, 500, 25],
+        'category': ['Electronics', 'Clothing', 'Clothing']
+    }
+    df = pd.DataFrame(data)
+
+    report = df.groupby('user_name').agg(
+        total_orders=('order_id', 'nunique'),
+        total_sum=('total_price', 'sum'),
+        mean_total=('total_price', 'mean'),
+        max_order=('total_price', 'max'),
+        unique_categories=('category', 'nunique')
+    ).reset_index()
+    report = add_vip_status(report)
+    report = sort_users_analytics(report)
+    return report.to_html(classes="table table-info", index=False, border=1)
 
 @app.get("/home")
 def home():
