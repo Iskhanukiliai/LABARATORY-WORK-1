@@ -590,6 +590,10 @@ def mean_price_by_category(df):
 def sort_orders_by_total(df):
     return df.sort_values(by='total_price', ascending=False)
 
+#task 37
+def get_top_n_expensive(df, n=3):
+    return df.sort_values(by='total_price', ascending=False).head(n)
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
