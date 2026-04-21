@@ -573,6 +573,9 @@ def add_quantity_column(df):
 def add_total_price_column(df):
     df['total_price'] = df['price'] * df['quantity']
     return df
+#task 33
+def filter_electronics(df):
+    return df[df['category'] == 'Electronics']
 
 @app.get("/home")
 def home():
