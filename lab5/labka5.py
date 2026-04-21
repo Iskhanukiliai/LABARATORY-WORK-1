@@ -577,6 +577,11 @@ def add_total_price_column(df):
 def filter_electronics(df):
     return df[df['category'] == 'Electronics']
 
+#task 34
+def count_products_by_category(df):
+    result = df.groupby('category').size().reset_index(name='count')
+    return result
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
