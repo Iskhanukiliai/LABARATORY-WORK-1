@@ -582,6 +582,11 @@ def count_products_by_category(df):
     result = df.groupby('category').size().reset_index(name='count')
     return result
 
+#task 35
+def mean_price_by_category(df):
+    result = df.groupby('category')['price'].mean().reset_index(name='mean_price')
+    return result
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
