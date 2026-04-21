@@ -599,6 +599,11 @@ def merge_orders_users(orders_df, users_df):
     merged = pd.merge(orders_df, users_df, on='user_id')
     return merged[['order_id', 'user_name', 'total_price']]
 
+# task 39
+def mean_order_per_user(df):
+    return df.groupby('user_name')['total_price'].mean().reset_index(name='mean_total')
+
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
