@@ -603,6 +603,9 @@ def merge_orders_users(orders_df, users_df):
 def mean_order_per_user(df):
     return df.groupby('user_name')['total_price'].mean().reset_index(name='mean_total')
 
+#task 40
+def count_orders_per_user_v2(df):
+    return df.groupby('user_name')['order_id'].nunique().reset_index(name='orders_count')
 
 @app.get("/home")
 def home():
