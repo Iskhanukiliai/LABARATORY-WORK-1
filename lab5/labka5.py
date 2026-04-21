@@ -620,6 +620,10 @@ def add_vip_status(df):
     df['VIP'] = df['total_sum'] > 1000
     return df
 
+#task 44
+def sort_users_analytics(df):
+    return df.sort_values(by=['total_sum', 'mean_total'], ascending=[False, True])
+
 @app.get("/home")
 def home():
     return "Дүкенге қош келдіңіз!"
