@@ -102,6 +102,17 @@ def get_column_stats(self):
         print(stats_df)
         return stats_df
 
+#task 7
+    def detect_anomalies(self):
+        print("\n--- task 7: Баға аномалияларын анықтау  ---")
+        mean_p = self.df['col_2'].mean()
+        std_p = self.df['col_2'].std()
+        threshold = mean_p + 3 * std_p
+        anomalies = self.df[self.df['col_2'] > threshold].copy()
+        print(f"Анықталған аномалиялар: {len(anomalies)}")
+        print(anomalies.head())
+        return anomalies
+
 
 if __name__ == "__main__":
     url = "https://docs.google.com/spreadsheets/d/1DWsGw8RNg5k53zhf1-r_G5tf9shJpKNW/edit?usp=sharing"
