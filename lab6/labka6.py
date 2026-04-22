@@ -62,12 +62,6 @@ class CatalogAnalyzer:
         self.df['double_stock'] = self.df['col_4'] * 2
         self.df['log_price'] = np.log(self.df['col_2'].replace(0, np.nan))
         print("total_value, double_stock, log_price бағандары сәтті қосылды.")
-if __name__ == "__main__":
-    url = "https://docs.google.com/spreadsheets/d/1DWsGw8RNg5k53zhf1-r_G5tf9shJpKNW/edit?usp=sharing"
-
-    pipeline = DataPipeline(url)
-    pipeline.load_data()
-    pipeline.process_numeric_data()
 
 
     # task 4
@@ -79,3 +73,22 @@ if __name__ == "__main__":
         print(f"Тауарлар табылды: {len(electronics_expensive)}")
         print(electronics_expensive.head())
         return electronics_expensive
+
+#task 5
+    def group_by_category(self):
+        print("\n--- task 5: Санаттар бойынша топтастыру ---")
+        summary = self.df.groupby('col_7').agg(
+            mean_price=('col_2', 'mean'),
+            max_price=('col_2', 'max'),
+            total_quantity=('col_3', 'sum')
+        ).reset_index()
+        summary.columns = ['category', 'mean_price', 'max_price', 'total_quantity']
+        print(summary)
+        return summary
+
+
+if __name__ == "__main__":
+    url = "https://docs.google.com/spreadsheets/d/1DWsGw8RNg5k53zhf1-r_G5tf9shJpKNW/edit?usp=sharing"
+    pipeline = DataPipeline(url)
+    pipeline.load_data()
+    pipeline.process_numeric_data()
