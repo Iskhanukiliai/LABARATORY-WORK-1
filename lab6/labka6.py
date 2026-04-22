@@ -24,27 +24,42 @@ class DataPipeline:
         except Exception as e:
             print(f"Жүктеу кезіндегі қате: {e}.Файлдың қолжетімділігін тексеріңіз")
 
+            def process_numeric_data(self):
+                if self.df is None:
+                    return
+                print("\n---task 2: Типтерді келтіру және бос орындарды толтыру---")
 
-if self.df is None:
-    return
+                for col in self.df.columns:
+                    converted_col = pd.to_numeric(self.df[col], errors='coerce')
 
-print("\n--- 2-тапсырма: Типтерді келтіру және бос орындарды толтыру---")
-for col in self.df.columns:
-    converted_col = pd.to_numeric(self.df[col], errors='coerce')
-    if not converted_col.isnull().all():
-        self.df[col] = converted_col.astype(float)
-        mean_value = self.df[col].mean()
-        self.df[col] = self.df[col].fillna(mean_value)
+                    if not converted_col.isnull().all():
+                        self.df[col] = converted_col.astype(float)
 
-        print(f"'{col}' бағаны өңделді. Толтыруға арналған орташа мән: {mean_value:.2f}")
+                        mean_value = self.df[col].mean()
+                        self.df[col] = self.df[col].fillna(mean_value)
 
-numeric_cols = self.df.select_dtypes(include=[np.number]).columns
-remaining_nas = self.df[numeric_cols].isnull().sum().sum()
+                        print(f"'{col}' бағаны өңделді. Толтыруға арналған орташа мән: {mean_value:.2f}")
 
-print(f"\nСандық бағандардағы қалған бос орындар саны: {remaining_nas}")
-print("\nЖаңартылған деректер типтері:")
-print(self.df.dtypes)
+                numeric_cols = self.df.select_dtypes(include=[np.number]).columns
+                remaining_nas = self.df[numeric_cols].isnull().sum().sum()
 
+                print(f"\nСандық бағандардағы қалған бос орындар саны: {remaining_nas}")
+                print("\nЖаңартылған деректер типтері:")
+                print(self.df.dtypes)
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+class CatalogAnalyzer:
+    def __init__(self, df):
+        self.df = df
+        sns.set_theme(style="whitegrid")
+    def create_features(self):
+        print("\n---task 3: Жаңа көрсеткіштерді жасау ---")
+        self.df['total_value'] = self.df['col_2'] * self.df['col_3']
+        self.df['double_stock'] = self.df['col_4'] * 2
+        self.df['log_price'] = np.log(self.df['col_2'].replace(0, np.nan))
+        print("total_value, double_stock, log_price бағандары сәтті қосылды.")
 if __name__ == "__main__":
     url = "https://docs.google.com/spreadsheets/d/1DWsGw8RNg5k53zhf1-r_G5tf9shJpKNW/edit?usp=sharing"
 
