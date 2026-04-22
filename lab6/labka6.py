@@ -50,6 +50,8 @@ class DataPipeline:
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
+#task 3
 class CatalogAnalyzer:
     def __init__(self, df):
         self.df = df
@@ -66,3 +68,14 @@ if __name__ == "__main__":
     pipeline = DataPipeline(url)
     pipeline.load_data()
     pipeline.process_numeric_data()
+
+
+    # task 4
+    def filter_expensive_electronics(self):
+        print("\n---task 4: Қымбат тауарларды фильтрациялау (Electronics) ---")
+        electronics_expensive = self.df[
+            (self.df['col_2'] > 500) & (self.df['col_7'] == "Electronics")
+            ].copy()
+        print(f"Тауарлар табылды: {len(electronics_expensive)}")
+        print(electronics_expensive.head())
+        return electronics_expensive
