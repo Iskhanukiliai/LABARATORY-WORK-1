@@ -86,6 +86,22 @@ class CatalogAnalyzer:
         print(summary)
         return summary
 
+# task 6
+def get_column_stats(self):
+        print("\n--- task 6: Жиынтық статистика (col_2-col_11) ---")
+        cols = [f'col_{i}' for i in range(2, 12)]
+        stats = []
+        for col in cols:
+            stats.append({
+                'column': col,
+                'mean': self.df[col].mean(),
+                'median': self.df[col].median(),
+                'std': self.df[col].std()
+            })
+        stats_df = pd.DataFrame(stats)
+        print(stats_df)
+        return stats_df
+
 
 if __name__ == "__main__":
     url = "https://docs.google.com/spreadsheets/d/1DWsGw8RNg5k53zhf1-r_G5tf9shJpKNW/edit?usp=sharing"
