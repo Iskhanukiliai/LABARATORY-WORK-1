@@ -92,3 +92,14 @@ plt.xlabel('Баға')
 plt.ylabel('Тауарлар саны')
 plt.grid(True)
 plt.savefig('price_distribution_task9.png')
+
+#10
+plt.figure(figsize=(10, 6))
+sns.regplot(x='col_2', y='col_3', data=df,
+            scatter_kws={'alpha':0.5, 'color':'blue'},
+            line_kws={'color':'red'})
+plt.title('Баға мен мөлшер арасындағы байланыс (Регрессия)')
+plt.xlabel('Баға (col_2)')
+plt.ylabel('Мөлшер (col_3)')
+plt.grid(True)
+plt.savefig('price_vs_quantity_task10.png')
