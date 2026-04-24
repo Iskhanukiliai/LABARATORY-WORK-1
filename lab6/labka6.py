@@ -47,30 +47,29 @@ print("\nСүзгіленген кестенің алғашқы 3 жолы:")
 print(filtered_df.head(3))
 
 #task 5
-print("\n--- task 5: Категориялар бойынша топтастыру ---")
-df['col_2'] = pd.to_numeric(df['col_2'], errors='coerce')
-df['col_3'] = pd.to_numeric(df['col_3'], errors='coerce')
-
-res_5 = df.groupby('col_7').agg(
-    mean_price=('col_2', 'mean'),
-    max_price=('col_2', 'max'),
-    total_quantity=('col_3', 'sum')
+analysis_results = df.groupby('col_1').agg(
+    avg_value=('col_2', 'mean'),
+    max_value=('col_2', 'max'),
+    total_items=('col_3', 'sum')
 ).reset_index()
-res_5.rename(columns={'col_7': 'category'}, inplace=True)
-print(res_5.head())
+analysis_results = analysis_results.rename(columns={'col_1': 'Категория'})
+print("\n#5 Тапсырма нәтижесі:")
+print(analysis_results)
 
 
 #task 6
-print("\n--- Задача 6: Статистический отчет.  ---")
-cols_10 = [f'col_{i}' for i in range(2, 12)]
-stats_data = []
-for c in cols_10:
-    numeric_col = pd.to_numeric(df[c], errors='coerce')
-    stats_data.append({
-        'column': c,
-        'mean': numeric_col.mean(),
-        'median': numeric_col.median(),
-        'std': numeric_col.std()
-    })
-res_6 = pd.DataFrame(stats_data)
-print(res_6)
+numeric_cols = [f'col_{i}' for i in range(2, 12)]
+data_subset = df[numeric_cols].copy()
+for column in numeric_cols:
+    data_subset[column] = pd.to_numeric(data_subset[column], errors='coerce')
+detailed_stats = data_subset.agg(['mean', 'median', 'std']).T
+detailed_stats = detailed_stats.reset_index().rename(columns={'index': 'Бағандар'})
+print("\n#6 Тапсырма нәтижесі:")
+print(detailed_stats)
+
+#task 7
+avg_p = df['col_2'].mean()
+std_p = df['col_2'].std()
+anomalies_data = df[df['col_2'] > (avg_p + 3 * std_p)]
+print("\n#task 7 (Аномальды тауарлар):")
+print(anomalies_data.head())
