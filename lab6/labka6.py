@@ -45,3 +45,9 @@ print(f"Орташа мән ({mean_val:.2f}) жоғары жолдар саны:
 print(len(filtered_df))
 print("\nСүзгіленген кестенің алғашқы 3 жолы:")
 print(filtered_df.head(3))
+
+#task 5
+print("\n--- task 5: Категориялар бойынша топтастыру ---")
+grouped_data = df.groupby('col_1')['col_2'].mean()
+print("Әр категория бойынша орташа көрсеткіштер:")
+print(grouped_data)
