@@ -36,3 +36,12 @@ print("Негізгі статистикалық көрсеткіштер:")
 print(stat_info.head())
 print("\nКестенің жалпы сипаттамасы:")
 print(df.info())
+
+#task 4
+print("\n--- task 4: Сүзгіленген мәліметтер ---")
+mean_val = df['col_2'].mean()
+filtered_df = df[df['col_2'] > mean_val]
+print(f"Орташа мән ({mean_val:.2f}) жоғары жолдар саны:")
+print(len(filtered_df))
+print("\nСүзгіленген кестенің алғашқы 3 жолы:")
+print(filtered_df.head(3))
