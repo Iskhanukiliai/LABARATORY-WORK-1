@@ -136,3 +136,11 @@ sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', linewidt
 plt.title('Корреляциялық матрицаның жылу картасы')
 plt.savefig('heatmap_task13.png')
 plt.show()
+
+#task 14
+price_limit = df['col_2'].mean() + 3 * df['col_2'].std()
+stock_limit = df['col_3'].mean() + 3 * df['col_3'].std()
+
+extreme_items = df[(df['col_2'] > price_limit) | (df['col_3'] > stock_limit)]
+print("\n#task 14 (Экстремалды тауарлар саны):")
+print(len(extreme_items))
