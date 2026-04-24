@@ -230,6 +230,25 @@ plt.title('Категориялар бойынша бағаның ауытқуы
 plt.xlabel('Стандартты ауытқу')
 plt.ylabel('Категория')
 plt.savefig('price_variation_task21.png')
+
 plt.show()
+# task 22
+out_of_stock = df[df['col_3'] == 0]
+result_22 = out_of_stock[['col_1', 'col_7', 'col_2']].head(10)
+print("\n22 тапсырма нәтижесі (Қоймада жоқ тауарлар):")
+print(result_22)
+
+# task 23
+top_categories = df['col_7'].value_counts().head(5).reset_index()
+top_categories.columns = ['category', 'count']
+plt.figure(figsize=(10, 6))
+sns.barplot(data=top_categories, x='category', y='count', hue='category', palette='coolwarm', legend=False)
+plt.title('Тауар саны бойынша үздік 5 категория')
+plt.xlabel('Категория')
+plt.ylabel('Тауар саны')
+plt.savefig('top5_categories_task23.png')
+plt.show()
+print("\n23 тапсырма нәтижесі:")
+print(top_categories)
 
 
