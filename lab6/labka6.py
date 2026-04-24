@@ -9,10 +9,8 @@ class DataPipeline:
     def load_data(self):
         file_id = self.url.split('/')[-2]
         export_url = f'https://docs.google.com/spreadsheets/d/{file_id}/export?format=xlsx'
-
         try:
             self.df = pd.read_excel(export_url)
-
             print("---task 1: Жүктеу және алғашқы тексеру---")
             print(f"DataFrame өлшемі: {self.df.shape}")
             print("\nДеректер типтері:")
