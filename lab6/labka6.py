@@ -26,5 +26,13 @@ print("\n--- Тексеру (task 2) ---")
 print("Бос ұяшықтар саны (нөл болуы керек):")
 print(df.isnull().sum().head())
 
+
+#task 3
 print("\nКестенің алғашқы 5 жолы:")
 print(df.head())
+print("\n--- task 3: Сандық мәліметтердің статистикасы ---")
+stat_info = df.describe()
+print("Негізгі статистикалық көрсеткіштер:")
+print(stat_info.head())
+print("\nКестенің жалпы сипаттамасы:")
+print(df.info())
