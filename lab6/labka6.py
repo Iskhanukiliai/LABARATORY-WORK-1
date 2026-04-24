@@ -47,7 +47,12 @@ print("\nСүзгіленген кестенің алғашқы 3 жолы:")
 print(filtered_df.head(3))
 
 #task 5
-print("\n--- task 5: Категориялар бойынша топтастыру ---")
-grouped_data = df.groupby('col_1')['col_2'].mean()
-print("Әр категория бойынша орташа көрсеткіштер:")
-print(grouped_data)
+print("\n--- task 5: Группировка товаров по категории ---")
+category_summary = df.groupby('col_7').agg(
+    mean_price=('col_2', 'mean'),
+    max_price=('col_2', 'max'),
+    total_quantity=('col_3', 'sum')
+).reset_index()
+category_summary.columns = ['category', 'mean_price', 'max_price', 'total_quantity']
+
+print(category_summary)
