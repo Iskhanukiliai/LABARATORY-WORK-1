@@ -108,7 +108,7 @@ plt.savefig('price_vs_quantity_task10.png')
 df['col_2'] = pd.to_numeric(df['col_2'], errors='coerce')
 
 plt.figure(figsize=(12, 6))
-sns.boxplot(x='col_1', y='col_2', data=df, palette='Set3')
+sns.boxplot(x='col_1', y='col_2', data=df, hue='col_1', palette='Set3', legend=False)
 
 plt.title('Категориялар бойынша бағалардың үлестірімі')
 plt.xlabel('Категория (col_1)')
@@ -117,4 +117,11 @@ plt.xticks(rotation=45)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.savefig('price_boxplot_task11.png')
+plt.show()
+
+#task 12
+cols_12 = ['col_2', 'col_3', 'col_5', 'col_6', 'col_7']
+
+sns.pairplot(df[cols_12].head(500), hue='col_7', palette='viridis')
+plt.savefig('pairplot_task12.png')
 plt.show()
