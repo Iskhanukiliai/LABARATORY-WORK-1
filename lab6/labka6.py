@@ -73,3 +73,9 @@ std_p = df['col_2'].std()
 anomalies_data = df[df['col_2'] > (avg_p + 3 * std_p)]
 print("\n#task 7 (Аномальды тауарлар):")
 print(anomalies_data.head())
+
+#task 8
+numeric_cols_fix = ['col_2', 'col_3', 'col_5', 'col_6', 'col_8', 'col_9', 'col_11', 'col_12', 'col_14', 'col_15']
+correlation_matrix = df[numeric_cols_fix].corr()
+print("\n#task 8(Корреляциялық матрица):")
+print(correlation_matrix)
