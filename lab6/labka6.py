@@ -103,3 +103,18 @@ plt.xlabel('Баға (col_2)')
 plt.ylabel('Мөлшер (col_3)')
 plt.grid(True)
 plt.savefig('price_vs_quantity_task10.png')
+
+#task 11
+df['col_2'] = pd.to_numeric(df['col_2'], errors='coerce')
+
+plt.figure(figsize=(12, 6))
+sns.boxplot(x='col_1', y='col_2', data=df, palette='Set3')
+
+plt.title('Категориялар бойынша бағалардың үлестірімі')
+plt.xlabel('Категория (col_1)')
+plt.ylabel('Баға (col_2)')
+plt.xticks(rotation=45)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig('price_boxplot_task11.png')
+plt.show()
