@@ -150,7 +150,7 @@ if 'log_price' not in df.columns:
 df['col_2'] = pd.to_numeric(df['col_2'], errors='coerce')
 df['col_3'] = pd.to_numeric(df['col_3'], errors='coerce')
 
-log_price not in df.columns:
+if 'log_price' not in df.columns:
     df['log_price'] = np.log1p(df['col_2'])
 category_summary = df.groupby('col_7').agg({
     'col_1': 'count',
@@ -161,3 +161,12 @@ category_summary = df.groupby('col_7').agg({
 category_summary.columns = ['count', 'mean_price', 'total_quantity', 'mean_log_price']
 print("#task 15")
 print(category_summary.head())
+
+#task 16
+df['col_2'] = pd.to_numeric(df['col_2'], errors='coerce')
+df['col_3'] = pd.to_numeric(df['col_3'], errors='coerce')
+
+idx = df.groupby('col_7')['col_2'].idxmax()
+most_expensive = df.loc[idx, ['col_1', 'col_2', 'col_7']]
+print("task 16 нәтижесі:")
+print(most_expensive)
