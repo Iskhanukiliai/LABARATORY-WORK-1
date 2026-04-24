@@ -177,3 +177,15 @@ top_10_expensive = df.sort_values(by='total_value', ascending=False).head(10)
 result_17 = top_10_expensive[['col_1', 'col_2', 'col_3', 'total_value']]
 print("\n#task 17 нәтижесі:")
 print(result_17)
+
+# task 18
+bins = [0, 50, 200, 500, 1000, float('inf')]
+labels = ['0-50', '50-200', '200-500', '500-1000', '>1000']
+df['price_range'] = pd.cut(df['col_2'], bins=bins, labels=labels)
+price_dist = df['price_range'].value_counts().reindex(labels).reset_index()
+price_dist.columns = ['price_range', 'count']
+
+plt.figure(figsize=(10, 6))
+sns.barplot(data=price_dist, x='price_range', y='count', hue='price_range', palette='viridis', legend=False)
+plt.title('Баға диапазоны бойынша тауарлардың үлестірімі')
+plt.show()
