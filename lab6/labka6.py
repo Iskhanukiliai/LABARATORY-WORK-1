@@ -170,3 +170,10 @@ idx = df.groupby('col_7')['col_2'].idxmax()
 most_expensive = df.loc[idx, ['col_1', 'col_2', 'col_7']]
 print("task 16 нәтижесі:")
 print(most_expensive)
+
+# task 17
+df['total_value'] = df['col_2'] * df['col_3']
+top_10_expensive = df.sort_values(by='total_value', ascending=False).head(10)
+result_17 = top_10_expensive[['col_1', 'col_2', 'col_3', 'total_value']]
+print("\n#task 17 нәтижесі:")
+print(result_17)
