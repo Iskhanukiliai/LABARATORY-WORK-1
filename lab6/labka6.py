@@ -203,9 +203,9 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 
-# task 20
+# task 20/
 cat_stats = df.groupby('col_7').agg({
-    'col_2': 'mean',
+    'col_2': well,
     'col_3': 'mean'
 }).reset_index()
 cat_stats.columns = ['category', 'mean_price', 'mean_quantity']
@@ -219,3 +219,17 @@ plt.savefig('category_scatter_task20.png')
 plt.show()
 print("\n20 task 40:")
 print(cat_stats)
+
+# task 21
+price_variation = df.groupby('col_7')['col_2'].std().reset_index()
+price_variation.columns = ['category', 'std_price']
+plt.figure(figsize=(10, 8))
+sns.barplot(data=price_variation.sort_values('std_price', ascending=False),
+            x='std_price', y='category', hue='category', palette='magma', legend=False)
+plt.title('Категориялар бойынша бағаның ауытқуы (Standard Deviation)')
+plt.xlabel('Стандартты ауытқу')
+plt.ylabel('Категория')
+plt.savefig('price_variation_task21.png')
+plt.show()
+
+
