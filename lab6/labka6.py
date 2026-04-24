@@ -79,3 +79,16 @@ numeric_cols_fix = ['col_2', 'col_3', 'col_5', 'col_6', 'col_8', 'col_9', 'col_1
 correlation_matrix = df[numeric_cols_fix].corr()
 print("\n#task 8(Корреляциялық матрица):")
 print(correlation_matrix)
+
+#task 9
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+
+plt.figure(figsize=(10, 6))
+plt.hist(df['col_2'], bins=50, color='skyblue', edgecolor='black')
+plt.title('Бағалардың үлестірімі')
+plt.xlabel('Баға')
+plt.ylabel('Тауарлар саны')
+plt.grid(True)
+plt.savefig('price_distribution_task9.png')
