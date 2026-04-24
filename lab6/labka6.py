@@ -125,3 +125,14 @@ cols_12 = ['col_2', 'col_3', 'col_5', 'col_6', 'col_7']
 sns.pairplot(df[cols_12].head(500), hue='col_7', palette='viridis')
 plt.savefig('pairplot_task12.png')
 plt.show()
+
+#task 13
+numeric_cols_13 = ['col_2', 'col_3', 'col_5', 'col_6', 'col_8', 'col_9', 'col_11']
+
+plt.figure(figsize=(10, 8))
+correlation_matrix = df[numeric_cols_13].corr()
+
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', linewidths=0.5)
+plt.title('Корреляциялық матрицаның жылу картасы')
+plt.savefig('heatmap_task13.png')
+plt.show()
