@@ -138,9 +138,26 @@ plt.savefig('heatmap_task13.png')
 plt.show()
 
 #task 14
-price_limit = df['col_2'].mean() + 3 * df['col_2'].std()
-stock_limit = df['col_3'].mean() + 3 * df['col_3'].std()
+if 'total_value' not in df.columns:
+    df['total_value'] = df['col_2'] * df['col_3']
+if 'double_stock' not in df.columns:
+    df['double_stock'] = df['col_3'] * 2
+if 'log_price' not in df.columns:
+    import numpy as np
+    df['log_price'] = np.log1p(df['col_2'])
 
-extreme_items = df[(df['col_2'] > price_limit) | (df['col_3'] > stock_limit)]
-print("\n#task 14 (Экстремалды тауарлар саны):")
-print(len(extreme_items))
+#task 15
+df['col_2'] = pd.to_numeric(df['col_2'], errors='coerce')
+df['col_3'] = pd.to_numeric(df['col_3'], errors='coerce')
+
+log_price not in df.columns:
+    df['log_price'] = np.log1p(df['col_2'])
+category_summary = df.groupby('col_7').agg({
+    'col_1': 'count',
+    'col_2': 'mean',
+    'col_3': 'sum',
+    'log_price': 'mean'
+})
+category_summary.columns = ['count', 'mean_price', 'total_quantity', 'mean_log_price']
+print("#task 15")
+print(category_summary.head())
