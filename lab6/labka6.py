@@ -250,9 +250,8 @@ plt.savefig('top5_categories_task23.png')
 plt.show()
 print("\ntask 23 тапсырма нәтижесі:")
 print(top_categories)
-
-#task 24
 # task 24
+
 top_stock = df.sort_values(by='col_3', ascending=False).head(10)
 plt.figure(figsize=(10, 6))
 sns.barplot(data=top_stock, x='col_3', y='col_1', hue='col_1', palette='viridis', legend=False)
