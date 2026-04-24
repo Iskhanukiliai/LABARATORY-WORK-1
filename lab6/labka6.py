@@ -189,3 +189,33 @@ plt.figure(figsize=(10, 6))
 sns.barplot(data=price_dist, x='price_range', y='count', hue='price_range', palette='viridis', legend=False)
 plt.title('Баға диапазоны бойынша тауарлардың үлестірімі')
 plt.show()
+
+# task 19
+cat_value = df.groupby('col_7')['total_value'].sum().reset_index()
+cat_value.columns = ['category', 'total_stock_value']
+max_cat = cat_value.loc[cat_value['total_stock_value'].idxmax()]
+print(f"\nЕң көп капиталды категория: {max_cat['category']}")
+
+plt.figure(figsize=(12, 6))
+sns.barplot(data=cat_value, x='category', y='total_stock_value', hue='category', palette='magma', legend=False)
+plt.title('Категориялар бойынша жалпы құны')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+# task 20
+cat_stats = df.groupby('col_7').agg({
+    'col_2': 'mean',
+    'col_3': 'mean'
+}).reset_index()
+cat_stats.columns = ['category', 'mean_price', 'mean_quantity']
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=cat_stats, x='mean_price', y='mean_quantity', hue='category', s=200)
+plt.title('Категориялар бойынша орташа баға мен орташа қордың байланысы')
+plt.xlabel('Орташа баға')
+plt.ylabel('Орташа қор саны')
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.savefig('category_scatter_task20.png')
+plt.show()
+print("\n20 task 40:")
+print(cat_stats)
