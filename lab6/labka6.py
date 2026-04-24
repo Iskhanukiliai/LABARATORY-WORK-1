@@ -47,12 +47,30 @@ print("\nСүзгіленген кестенің алғашқы 3 жолы:")
 print(filtered_df.head(3))
 
 #task 5
-print("\n--- task 5: Группировка товаров по категории ---")
-category_summary = df.groupby('col_7').agg(
+print("\n--- task 5: Категориялар бойынша топтастыру ---")
+df['col_2'] = pd.to_numeric(df['col_2'], errors='coerce')
+df['col_3'] = pd.to_numeric(df['col_3'], errors='coerce')
+
+res_5 = df.groupby('col_7').agg(
     mean_price=('col_2', 'mean'),
     max_price=('col_2', 'max'),
     total_quantity=('col_3', 'sum')
 ).reset_index()
-category_summary.columns = ['category', 'mean_price', 'max_price', 'total_quantity']
+res_5.rename(columns={'col_7': 'category'}, inplace=True)
+print(res_5.head())
 
-print(category_summary)
+
+#task 6
+print("\n--- Задача 6: Статистический отчет.  ---")
+cols_10 = [f'col_{i}' for i in range(2, 12)]
+stats_data = []
+for c in cols_10:
+    numeric_col = pd.to_numeric(df[c], errors='coerce')
+    stats_data.append({
+        'column': c,
+        'mean': numeric_col.mean(),
+        'median': numeric_col.median(),
+        'std': numeric_col.std()
+    })
+res_6 = pd.DataFrame(stats_data)
+print(res_6)
