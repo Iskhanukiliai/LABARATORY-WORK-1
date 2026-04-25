@@ -278,3 +278,5 @@ plt.savefig('heatmap_task25.png')
 plt.show()
 print("\ntask 25 нәтижесі:\n", h_map.head())
 
+#36 -> 20
+
