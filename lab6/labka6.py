@@ -203,7 +203,7 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 
-# task 20/
+#task 20  and 36
 cat_stats = df.groupby('col_7').agg({
     'col_2': well,
     'col_3': 'mean'
@@ -217,10 +217,10 @@ plt.ylabel('Орташа қор саны')
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.savefig('category_scatter_task20.png')
 plt.show()
-print("\n20 task 40:")
+print("\n20 task 36:")
 print(cat_stats)
 
-# task 21
+#task 21 and 37
 price_variation = df.groupby('col_7')['col_2'].std().reset_index()
 price_variation.columns = ['category', 'std_price']
 plt.figure(figsize=(10, 8))
@@ -230,15 +230,15 @@ plt.title('Категориялар бойынша бағаның ауытқуы
 plt.xlabel('Стандартты ауытқу')
 plt.ylabel('Категория')
 plt.savefig('price_variation_task21.png')
-
 plt.show()
-# task 22
+
+#task 22 and 38
 out_of_stock = df[df['col_3'] == 0]
 result_22 = out_of_stock[['col_1', 'col_7', 'col_2']].head(10)
 print("\n22 тапсырма нәтижесі (Қоймада жоқ тауарлар):")
 print(result_22)
 
-# task 23
+#task 23 and 39
 top_categories = df['col_7'].value_counts().head(5).reset_index()
 top_categories.columns = ['category', 'count']
 plt.figure(figsize=(10, 6))
@@ -251,7 +251,7 @@ plt.show()
 print("\ntask 23 тапсырма нәтижесі:")
 print(top_categories)
 
-# task 24
+#task 24 and 40
 top_stock = df.sort_values(by='col_3', ascending=False).head(10)
 plt.figure(figsize=(10, 6))
 sns.barplot(data=top_stock, x='col_3', y='col_1', hue='col_1', palette='viridis', legend=False)
@@ -261,4 +261,20 @@ plt.ylabel('Тауар атауы')
 plt.savefig('top_stock_task24.png')
 plt.show()
 print("\ntask 24 нәтижесі:\n", top_stock[['col_1', 'col_3']])
+bins = [0, 50, 200, 500, 1000, float('inf')]
+labels = ['0-50', '50-200', '200-500', '500-1000', '>1000']
+
+#task 25 and 41
+bins = [0, 50, 200, 500, 1000, float('inf')]
+labels = ['0-50', '50-200', '200-500', '500-1000', '>1000']
+df['price_range'] = pd.cut(pd.to_numeric(df['col_2'], errors='coerce'), bins=bins, labels=labels)
+h_map = df.pivot_table(index='col_7', columns='price_range', values='col_1', aggfunc='count', fill_value=0)
+plt.figure(figsize=(12, 8))
+sns.heatmap(h_map, annot=True, fmt='d', cmap='YlGnBu')
+plt.title('Категориялар мен баға диапазондарының жылу картасы')
+plt.xlabel('Баға диапазоны')
+plt.ylabel('Категория')
+plt.savefig('heatmap_task25.png')
+plt.show()
+print("\ntask 25 нәтижесі:\n", h_map.head())
 
