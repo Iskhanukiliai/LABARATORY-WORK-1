@@ -279,4 +279,7 @@ plt.show()
 print("\ntask 25 нәтижесі:\n", h_map.head())
 
 #36 -> 20
+#37 -> 21
+
+
 
