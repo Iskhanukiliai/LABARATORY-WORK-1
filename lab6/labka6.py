@@ -285,6 +285,20 @@ print("\ntask 25 нәтижесі:\n", h_map.head())
 #40 -> 24
 #41 -> 25
 
+#task 42
+df['col_2'] = pd.to_numeric(df['col_2'], errors='coerce')
+df['col_5'] = pd.to_numeric(df['col_5'], errors='coerce')
+plt.figure(figsize=(10, 6))
+sns.regplot(data=df, x='col_2', y='col_5', scatter_kws={'alpha':0.5}, line_kws={'color':'red'})
+plt.title('Тауардың бағасы мен рейтингі арасындағы байланыс')
+plt.xlabel('Баға')
+plt.ylabel('Рейтинг')
+plt.grid(True, linestyle='--', alpha=0.3)
+plt.savefig('price_rating_analysis_task26.png')
+plt.show()
+
+print("\ntask 42: регрессиялық талдау орындалды")
+
 
 
 
