@@ -114,11 +114,12 @@ def test_inventory():
     inv.add_product(p2)
     inv.add_product(p3)
 
-    return {
+    result = {
         "all_items": [str(p) for p in inv.get_all_products()],
         "count": len(inv.get_all_products()),
         "search_102": str(inv.get_product(102)),
         "inventory_dict": {p_id: str(p_obj) for p_id, p_obj in inv.to_dict().items()}}
+    return result
 
 #task 5
     def filter_by_price(self, min_price: float) -> list[Product]:
@@ -135,6 +136,7 @@ def test_filter():
     return {
         "expensive_count": len(expensive_products),
         "names": [p.name for p in expensive_products]}
+
 #task 6
 import datetime
 
@@ -378,7 +380,7 @@ def average_order():
     result = get_average_order_value(order_sums)
     return float(result)
 
-]#task 20
+#task 20
 def get_expensive_order_indices(order_sums_array, threshold=1000):
     indices = np.where(order_sums_array > threshold)[0]
     return indices
