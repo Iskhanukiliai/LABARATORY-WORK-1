@@ -37,3 +37,11 @@ sns.boxplot(x='col_7', y='col_2', data=df)
 plt.xticks(rotation=45)
 plt.title('Санаттар бойынша бағалар')
 plt.show()
+
+#task 5
+mean = df['col_2'].mean()
+std = df['col_2'].std()
+
+anomalies = df[(df['col_2'] > mean + 3*std) | (df['col_2'] < mean - 3*std)]
+
+df = df.drop(anomalies.index)
