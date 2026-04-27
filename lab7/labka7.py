@@ -19,3 +19,21 @@ df.dropna(subset=['col_7'], inplace=True)
 df['total_value'] = df['col_2'] * df['col_3']
 df['log_price'] = np.log(df['col_2'])
 df['double_stock'] = df['col_3'] * 2
+
+#task 4
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(10, 6))
+sns.histplot(df['col_2'], kde=True)
+plt.title('Бағаның таралуы')
+plt.show()
+
+sns.scatterplot(data=df, x='col_3', y='col_2')
+plt.title('Баға мен Саны арасындағы байланыс')
+plt.show()
+
+sns.boxplot(x='col_7', y='col_2', data=df)
+plt.xticks(rotation=45)
+plt.title('Санаттар бойынша бағалар')
+plt.show()
