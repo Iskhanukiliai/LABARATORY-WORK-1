@@ -65,3 +65,10 @@ model_simple.fit(X_train[['col_3']], y_train)
 y_pred_simple = model_simple.predict(X_test[['col_3']])
 print("MAE:", mean_absolute_error(y_test, y_pred_simple))
 print("MSE:", mean_squared_error(y_test, y_pred_simple))
+
+#task 9
+model_full = LinearRegression()
+model_full.fit(X_train, y_train)
+
+y_pred_full = model_full.predict(X_test)
+print("Жақсартылған MAE:", mean_absolute_error(y_test, y_pred_full))
