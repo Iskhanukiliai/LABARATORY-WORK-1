@@ -72,3 +72,11 @@ model_full.fit(X_train, y_train)
 
 y_pred_full = model_full.predict(X_test)
 print("Жақсартылған MAE:", mean_absolute_error(y_test, y_pred_full))
+
+#task 10
+plt.scatter(y_test, y_pred_full)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
+plt.xlabel('Нақты баға')
+plt.ylabel('Болжалды баға')
+plt.title('Нақты және болжалды бағаларды салыстыру')
+plt.show()
