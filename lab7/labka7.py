@@ -89,3 +89,13 @@ X_train_scaled = X_train.copy()
 X_test_scaled = X_test.copy()
 X_train_scaled[cols_to_scale] = scaler.fit_transform(X_train[cols_to_scale])
 X_test_scaled[cols_to_scale] = scaler.transform(X_test[cols_to_scale])
+
+#task 12
+from sklearn.tree import DecisionTreeRegressor
+
+dt_model = DecisionTreeRegressor()
+dt_model.fit(X_train, y_train)
+importance = pd.Series(dt_model.feature_importances_, index=X_train.columns)
+importance.nlargest(10).plot(kind='barh')
+plt.title('Белгілердің маңыздылығы')
+plt.show()
