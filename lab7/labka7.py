@@ -49,3 +49,9 @@ df = df.drop(anomalies.index)
 
 #task 6
 df = pd.get_dummies(df, columns=['col_7'], drop_first=True)
+
+#task 7
+from sklearn.model_selection import train_test_split
+y = df['col_2']
+X = df.select_dtypes(include=[np.number]).drop(columns=['col_2'])
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
