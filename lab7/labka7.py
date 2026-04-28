@@ -55,3 +55,13 @@ from sklearn.model_selection import train_test_split
 y = df['col_2']
 X = df.select_dtypes(include=[np.number]).drop(columns=['col_2'])
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+#task 8
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+model_simple = LinearRegression()
+model_simple.fit(X_train[['col_3']], y_train)
+y_pred_simple = model_simple.predict(X_test[['col_3']])
+print("MAE:", mean_absolute_error(y_test, y_pred_simple))
+print("MSE:", mean_squared_error(y_test, y_pred_simple))
