@@ -80,3 +80,12 @@ plt.xlabel('Нақты баға')
 plt.ylabel('Болжалды баға')
 plt.title('Нақты және болжалды бағаларды салыстыру')
 plt.show()
+
+#task 11
+from sklearn.preprocessing import StandardScaler
+cols_to_scale = ['col_3', 'total_value', 'double_stock', 'log_price']
+scaler = StandardScaler()
+X_train_scaled = X_train.copy()
+X_test_scaled = X_test.copy()
+X_train_scaled[cols_to_scale] = scaler.fit_transform(X_train[cols_to_scale])
+X_test_scaled[cols_to_scale] = scaler.transform(X_test[cols_to_scale])
