@@ -45,3 +45,7 @@ std = df['col_2'].std()
 anomalies = df[(df['col_2'] > mean + 3*std) | (df['col_2'] < mean - 3*std)]
 
 df = df.drop(anomalies.index)
+
+
+#task 6
+df = pd.get_dummies(df, columns=['col_7'], drop_first=True)
