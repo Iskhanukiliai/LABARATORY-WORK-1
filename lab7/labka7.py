@@ -123,6 +123,11 @@ for cat_col in [col for col in df.columns if 'col_7_' in col]:
         m = LinearRegression().fit(X_cat, y_cat)
         print(f"Модель {cat_col} үшін оқытылды")
 
+#task 16
+plt.scatter(y_test, y_pred_full, alpha=0.5)
+plt.title('Барлық санаттар бойынша болжам')
+plt.show()
+
 #task 17
 cv_scores = cross_val_score(LinearRegression(), X, y, cv=5, scoring='neg_mean_absolute_error')
 print("Кросс-валидация MAE:", -cv_scores.mean())
