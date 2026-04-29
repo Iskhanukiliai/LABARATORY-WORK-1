@@ -107,3 +107,4 @@ X_test_poly = poly.transform(X_test[['col_3', 'total_value']])
 model_poly = LinearRegression()
 model_poly.fit(X_train_poly, y_train)
 print("Полиномиалды MAE:", mean_absolute_error(y_test, model_poly.predict(X_test_poly)))
+
