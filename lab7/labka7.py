@@ -113,3 +113,12 @@ knn = KNeighborsRegressor(n_neighbors=5)
 knn.fit(X_train_scaled, y_train)
 y_pred_knn = knn.predict(X_test_scaled)
 print("KNN MAE:", mean_absolute_error(y_test, y_pred_knn))
+
+#task 15
+for cat_col in [col for col in df.columns if 'col_7_' in col]:
+    cat_data = df[df[cat_col] == 1]
+    if len(cat_data) > 5:
+        X_cat = cat_data.select_dtypes(include=[np.number]).drop(columns=['col_2'])
+        y_cat = cat_data['col_2']
+        m = LinearRegression().fit(X_cat, y_cat)
+        print(f"Модель {cat_col} үшін оқытылды")
