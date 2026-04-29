@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-
 df = pd.read_excel('catalog_products.xlsx')
 
 #task 1
