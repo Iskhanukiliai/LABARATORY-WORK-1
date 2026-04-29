@@ -99,3 +99,11 @@ importance = pd.Series(dt_model.feature_importances_, index=X_train.columns)
 importance.nlargest(10).plot(kind='barh')
 plt.title('Белгілердің маңыздылығы')
 plt.show()
+
+#task 13
+poly = PolynomialFeatures(degree=2)
+X_train_poly = poly.fit_transform(X_train[['col_3', 'total_value']])
+X_test_poly = poly.transform(X_test[['col_3', 'total_value']])
+model_poly = LinearRegression()
+model_poly.fit(X_train_poly, y_train)
+print("Полиномиалды MAE:", mean_absolute_error(y_test, model_poly.predict(X_test_poly)))
