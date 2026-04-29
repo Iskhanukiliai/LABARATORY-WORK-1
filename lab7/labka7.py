@@ -127,4 +127,19 @@ for cat_col in [col for col in df.columns if 'col_7_' in col]:
 cv_scores = cross_val_score(LinearRegression(), X, y, cv=5, scoring='neg_mean_absolute_error')
 print("Кросс-валидация MAE:", -cv_scores.mean())
 
+#task 18
+def get_class(p):
+    if p < 100: return 0
+    if p <= 500: return 1
+    return 2
+
+df['price_class'] = df['col_2'].apply(get_class)
+X_c = X
+y_c = df['price_class']
+X_tr_c, X_te_c, y_tr_c, y_te_c = train_test_split(X_c, y_c, test_size=0.2)
+clf = DecisionTreeClassifier()
+clf.fit(X_tr_c, y_tr_c)
+print("Классификация дәлдігі:", accuracy_score(y_te_c, clf.predict(X_te_c)))
+
+
 
