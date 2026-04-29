@@ -107,6 +107,7 @@ model_poly = LinearRegression()
 model_poly.fit(X_train_poly, y_train)
 print("Полиномиалды MAE:", mean_absolute_error(y_test, model_poly.predict(X_test_poly)))
 
+
 #task 14
 knn = KNeighborsRegressor(n_neighbors=5)
 knn.fit(X_train_scaled, y_train)
