@@ -146,5 +146,11 @@ clf = DecisionTreeClassifier()
 clf.fit(X_tr_c, y_tr_c)
 print("Классификация дәлдігі:", accuracy_score(y_te_c, clf.predict(X_te_c)))
 
+#task 19
+conf_matrix = confusion_matrix(y_te_c, clf.predict(X_te_c))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Greens')
+plt.xlabel('Болжам')
+plt.ylabel('Шындық')
+plt.show()
 
 
