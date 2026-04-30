@@ -153,4 +153,7 @@ plt.xlabel('Болжам')
 plt.ylabel('Шындық')
 plt.show()
 
+#task 20
+df['predicted_price'] = model_full.predict(X)
+df.to_excel('catalog_products_results.xlsx', index=False)
 
